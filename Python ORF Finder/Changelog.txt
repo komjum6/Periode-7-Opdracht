@@ -1,0 +1,10 @@
+Dit is de changelog, hier worden de toevoegingen besproken per verandering.
+Gelieve deze aan te passen bij iedere commit. 
+
+In versie 0.3
+--------------------------------------------------------------------------------------------
+1. Justin heeft comments toegevoegd
+2. Justin heeft de GUI aangepast zodat je geen leeg Frame meer te zien krijgt
+3. Justin heeft in de GUI een textblok toegevoegd zodat je de ORF's te zien krijgt in de GUI
+
+--------------------------------------------------------------------------------------------
