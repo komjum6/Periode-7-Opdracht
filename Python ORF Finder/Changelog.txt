@@ -7,4 +7,9 @@ In versie 0.3
 2. Justin heeft de GUI aangepast zodat je geen leeg Frame meer te zien krijgt
 3. Justin heeft in de GUI een textblok toegevoegd zodat je de ORF's te zien krijgt in de GUI
 
+In versie 0.31
+--------------------------------------------------------------------------------------------
+1. Justin heeft het bestand verdeeld in meerdere bestanden om het project modulair te maken
+	-De bestanden zijn nu ORF+Finder,read en dataprocessing
+
 --------------------------------------------------------------------------------------------
