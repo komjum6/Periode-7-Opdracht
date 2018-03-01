@@ -155,7 +155,7 @@ def findOpenReadingFrames(self, seq, seqje, Frameskew = -3):
             stopPosition = findNextStopCodon(seqje, startPosition)
             # check dat we de stop posities hebben:
             if stopPosition != None:
-                # Maak een tuple met start en stopposities:
+                # Maak een tuple met start en stopposities en tel daar Frameskew bij op:
                 result.append( (startPosition + Frameskew, stopPosition + Frameskew) )
     else:
         for startPosition in findStartPositions(ejqes):
@@ -163,22 +163,26 @@ def findOpenReadingFrames(self, seq, seqje, Frameskew = -3):
             stopPosition = findNextStopCodon(ejqes, startPosition)
             # check dat we de stop posities hebben:
             if stopPosition != None:
-                # Maak een tuple met start en stopposities:
+                # Maak een tuple met start en stopposities en tel daar Frameskew bij op:
                 result.append( (startPosition + Frameskew, stopPosition + Frameskew) )
                 
-    #Roep de volgende functie aan
-    if Frameskew != 4:
+    #Roep de volgende functies aan, de variabele Frameskew mag niet groter zijn dan 2
+    if Frameskew != 3:
         findOpenReadingFrames(self, seq, seqje, Frameskew +1)
         printOpenReadingFrames(self, seq, seqje, result, Frameskew)
     
 def printOpenReadingFrames(self, seq, seqje, result, Frameskew):
+    #Er is geen Reading Frame 0
+    if Frameskew >=0:
+        Frameskew += 1
+    
     features = []
     displayString = ""
     count = 0
     for x in range(0,len(result)):
         found_orf = seqje[slice(*result[count])] #Door de index te veranderen is door de ORF's te bladeren
         #print("This is ",count," index: ",found_orf)
-        displayString = displayString + str(count) + " index " + found_orf + "\n" #Een string maken met alle ORF's
+        displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + found_orf #Een string maken met alle ORF's
         color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
         features.append(GraphicFeature(start=result[count][0], end=result[count][1], strand=+1, color=color, label= str(count) + " Index ORF", labelcolor=color)) #Het toevoegen van de entries aan het figuur
         #print("result count ",*result[count]) #Print de start en stoppositie van de ORF's
@@ -186,11 +190,11 @@ def printOpenReadingFrames(self, seq, seqje, result, Frameskew):
 
     self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
     record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
-    #plt.title(str(Frameskew))
     record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
-    plt.title(str(Frameskew))
-    plt.show()
+    plt.title(str(Frameskew)) #De titel wordt gezet
+    plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
     seq.set(str(result))
     #print(seq.get())
+    
     
