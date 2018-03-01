@@ -12,4 +12,6 @@ In versie 0.31
 1. Justin heeft het bestand verdeeld in meerdere bestanden om het project modulair te maken
 	-De bestanden zijn nu ORF+Finder,read en dataprocessing
 
+In versie 0.32
 --------------------------------------------------------------------------------------------
+1. Justin heeft ervoor gezorgd dat er meerdere Reading Frames zijn.
