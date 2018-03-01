@@ -9,14 +9,11 @@
 # Known Bugs: 
 # TO_ADD: Radiobutton voor readingframes, blastbutton (Na het inlezen, voor één of alle reading frames)
 
-from read import *
+from read import load_file
 from dataprocessing import findStartPositions, findNextCodon, findNextStopCodon, findOpenReadingFrames
 
-#from tkinter import filedialog
 from tkinter import ttk
 from tkinter import *  
-# from dna_features_viewer import GraphicFeature, GraphicRecord
-# import random
 
 #Alleen nodig als je Jupyter notebook gebruikt
 get_ipython().magic('matplotlib')
@@ -26,43 +23,8 @@ class ORFGUI(Frame):
     def __init__(self, master):
         try:
             seq = StringVar() #De sequentie als string
-            self = self
+            self = self #Laat de code zichzelf in de ogen kijken door 'm een spiegel voor te leggen...
             
-#             def findOpenReadingFrames(seqje):
-#                 seqje = str(seqje)
-#                 seqje = seqje.upper()
-#                 # Een lijst voor de resultaten
-#                 result = []
-#                 # loop over de lijst met findStartPositions:
-#                 for startPosition in findStartPositions(seqje):
-#                     # pak de stop positie voor iedere start positie:
-#                     stopPosition = findNextStopCodon(seqje, startPosition)
-#                     # check dat we de stop posities hebben:
-#                     if stopPosition != None:
-#                         # Maak een tuple met start en stopposities:
-#                         result.append( (startPosition, stopPosition) )
-                
-#                 #ranges = [(n, min(n+1, 3)) for n in range(1, 3)]
-#                 #print("This is first index: ",ranges)
-                
-#                 features = []
-#                 displayString = ""
-#                 count = 0
-#                 for x in range(0,len(result)):
-#                     found_orf = seqje[slice(*result[count])] #Door de index te veranderen is door de ORF's te bladeren
-#                     print("This is ",count," index: ",found_orf)
-#                     displayString = displayString + str(count) + " index " + found_orf + "\n" #Een string maken met alle ORF's
-#                     color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
-#                     features.append(GraphicFeature(start=result[count][0], end=result[count][1], strand=+1, color=color, label= str(count) + " Index ORF", labelcolor=color)) #Het toevoegen van de entries aan het figuur
-#                     print("result count ",*result[count]) #Print de start en stoppositie van de ORF's
-#                     count += 1
-                    
-#                 self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
-#                 record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
-#                 record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
-#                 seq.set(str(result))
-#                 print(seq.get())
-
             #Het maken van de master, het hoofdscherm
             self.master = master #De master is het hoofdscherm
             master.title("ORF Predictor") #De titel van het hoofdscherm
@@ -85,9 +47,6 @@ class ORFGUI(Frame):
             
             root.mainloop() #Het uitvoeren van de mainloop
             
-            
-            
-        
         except TclError:
             print("TclError") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
         
