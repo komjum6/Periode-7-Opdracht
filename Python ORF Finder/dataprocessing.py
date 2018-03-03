@@ -85,7 +85,58 @@ aminoAcidMap = {  #Een aminozuurdictionary
                 'GGT' : 'G',
                 'GGC' : 'G',
                 'GGA' : 'G',
-                'GGG' : 'G'}
+                'GGG' : 'G',
+    
+'ANC' : 'X', #Ik heb hier wat toegevoegd om N's af te vangen. Het lukt maar niet.
+'CNA' : 'X',
+'NCA' : 'X',
+'NCN' : 'X',
+'TCN' : 'X',
+'TNC' : 'X',
+'NGT' : 'X',
+'ANG' : 'X',
+'GNA' : 'X',
+'ANN' : 'X',
+'NGA' : 'X',
+'NNA' : 'X',
+'GNT' : 'X',
+'CTN' : 'X',
+'CNG' : 'X',
+'CGN' : 'X',
+'NAC' : 'X',
+'GNN' : 'X',
+'GAN' : 'X',
+'TAN' : 'X',
+'NNG' : 'X',
+'NNT' : 'X',
+'ACN' : 'X',
+'CNT' : 'X',
+'AGN' : 'X',
+'NGN' : 'X',
+'GCN' : 'X',
+'NAG' : 'X',
+'CNN' : 'X',
+'NGC' : 'X',
+'GTN' : 'X',
+'TNN' : 'X',
+'NCT' : 'X',
+'NTA' : 'X',
+'TGN' : 'X',
+'NNC' : 'X',
+'ANT' : 'X',
+'GNC' : 'X',
+'NAT' : 'X',
+'NTG' : 'X',
+'NAN' : 'X',
+'CAN' : 'X',
+'NTC' : 'X',
+'TNG' : 'X',
+'NTN' : 'X',
+'TNA' : 'X',
+'ATN' : 'X',
+'NCG' : 'X',
+'NNN' : 'X'
+} #Belangrijke toevoeging
 
 StartCodon = 'ATG'
 
@@ -108,7 +159,7 @@ def findStartPositions(SEQ):
             
 def findNextCodon(seq, start, codon):
     # loop over een lijst met indeces
-    # Er worden hier stappen van 3 genomen    
+    # Er worden hier stappen van 3 genomen
     seq = seq.upper()
     for i in range(start, len(seq), 3):
         # kijk of de huidige startpositie diegene is die we zoeken
@@ -171,7 +222,7 @@ def findOpenReadingFrames(self, seq, seqje, Frameskew = -3):
         findOpenReadingFrames(self, seq, seqje, Frameskew +1)
         printOpenReadingFrames(self, seq, seqje, result, Frameskew)
     
-def printOpenReadingFrames(self, seq, seqje, result, Frameskew):
+def printOpenReadingFrames(self, seq, seqje, result, Frameskew, recordlijst = [], Frameskewlijst = []):
     #Er is geen Reading Frame 0
     if Frameskew >=0:
         Frameskew += 1
@@ -190,11 +241,65 @@ def printOpenReadingFrames(self, seq, seqje, result, Frameskew):
 
     self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
     record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
-    record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
-    plt.title(str(Frameskew)) #De titel wordt gezet
-    plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
-    seq.set(str(result))
+    recordlijst.append(record)
+    Frameskewlijst.append(str(Frameskew))
+    
+    if len(recordlijst) == 6:
+        fig, ((ax1, ax2, ax3), (ax4, ax5 , ax6)) = plt.subplots(nrows = 2, ncols = 3, figsize=(80, 80), sharex='col', sharey='row')
+        st = fig.suptitle("Reading Frames", fontsize="x-large")
+
+        #plt.subplot(611)
+        rec1 = recordlijst[0]
+        re1 = rec1.plot(ax = ax1)
+        ax1.set_title(Frameskewlijst[0])
+
+        #plt.subplot(612)
+        rec2 = recordlijst[1]
+        re2 = rec2.plot(ax = ax2)
+        ax2.set_title(Frameskewlijst[1])
+
+        #plt.subplot(613)
+        rec3 = recordlijst[2]
+        re3 = rec3.plot(ax = ax3)
+        ax3.set_title(Frameskewlijst[2])
+        
+        #plt.subplot(614)
+        rec4 = recordlijst[3]
+        re4 = rec4.plot(ax = ax4)
+        ax4.set_title(Frameskewlijst[3])
+        
+        #plt.plot(615)
+        rec5 = recordlijst[4]
+        re5 = rec5.plot(ax = ax5)
+        ax5.set_title(Frameskewlijst[4])
+        
+        #plt.subplot(616)
+        rec6 = recordlijst[5]
+        re6 = rec6.plot(ax = ax6)
+        ax6.set_title(Frameskewlijst[5])
+
+        fig.tight_layout()
+
+        # shift subplots down:
+        st.set_y(0.95)
+        fig.subplots_adjust(top=0.90,bottom=0.05,hspace = 0.2)
+        
+        mng = plt.get_current_fig_manager()
+        mng.frame.Maximize(True)
+        
+        plt.show()
+    
+        
+    
+    #record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
+    #plt.title(str(Frameskew)) #De titel wordt gezet
+    
+    #plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
+    
+    
+    
+    #seq.set(str(result))
     #print(seq.get())
     
     
