@@ -142,6 +142,7 @@ StartCodon = 'ATG'
 
 StopCodons = ['TAG', 'TGA', 'TAA']
 
+#-----------------------------------------Begin van de Functies, hieronder zijn functies die in andere functies worden gebruikt---------------------------------------------
 
 def findStartPositions(SEQ):
     # uppercase seq
@@ -188,10 +189,12 @@ def findNextStopCodon(seq, start):
         # return None als er geen stop condons zijn
         return None
     
+#-----------------------------------------Hieronder zijn functies voor het maken van de data van de plots-------------------------------------------------------------
+    
 def findOpenReadingFrames(self, seq, seqje, Frameskew = -3):
     
     seqje = str(seqje)
-    seqje = seqje.upper()
+    seqje = seqje.upper() #Hoofdletters
     
     #Hier wordt de lijst gereversed
     if Frameskew < 0:
@@ -219,8 +222,8 @@ def findOpenReadingFrames(self, seq, seqje, Frameskew = -3):
                 
     #Roep de volgende functies aan, de variabele Frameskew mag niet groter zijn dan 2
     if Frameskew != 3:
-        findOpenReadingFrames(self, seq, seqje, Frameskew +1)
-        printOpenReadingFrames(self, seq, seqje, result, Frameskew)
+        findOpenReadingFrames(self, seq, seqje, Frameskew +1) #Recursie
+        printOpenReadingFrames(self, seq, seqje, result, Frameskew) #Gaat verder met de data in een volgende functie
     
 def printOpenReadingFrames(self, seq, seqje, result, Frameskew, recordlijst = [], Frameskewlijst = []):
     #Er is geen Reading Frame 0
@@ -242,55 +245,57 @@ def printOpenReadingFrames(self, seq, seqje, result, Frameskew, recordlijst = []
     self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
     record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
     
-    recordlijst.append(record)
-    Frameskewlijst.append(str(Frameskew))
+    recordlijst.append(record) #Vul de lijst met recordobjecten
+    Frameskewlijst.append(str(Frameskew)) #Maak een string lijst met de Reading Frames voor de namen van de figuren
     
-    if len(recordlijst) == 6:
-        fig, ((ax1, ax2, ax3), (ax4, ax5 , ax6)) = plt.subplots(nrows = 2, ncols = 3, figsize=(80, 80), sharex='col', sharey='row')
-        st = fig.suptitle("Reading Frames", fontsize="x-large")
-
-        #plt.subplot(611)
-        rec1 = recordlijst[0]
-        re1 = rec1.plot(ax = ax1)
-        ax1.set_title(Frameskewlijst[0])
-
-        #plt.subplot(612)
-        rec2 = recordlijst[1]
-        re2 = rec2.plot(ax = ax2)
-        ax2.set_title(Frameskewlijst[1])
-
-        #plt.subplot(613)
-        rec3 = recordlijst[2]
-        re3 = rec3.plot(ax = ax3)
-        ax3.set_title(Frameskewlijst[2])
+    if len(recordlijst) == 6: #Er zijn altijd maar 6 Reading Frames mogelijk
+        plotOpenReadingFrames(self, recordlijst, Frameskewlijst) #Aanroepen van de volgende functie
         
-        #plt.subplot(614)
-        rec4 = recordlijst[3]
-        re4 = rec4.plot(ax = ax4)
-        ax4.set_title(Frameskewlijst[3])
-        
-        #plt.plot(615)
-        rec5 = recordlijst[4]
-        re5 = rec5.plot(ax = ax5)
-        ax5.set_title(Frameskewlijst[4])
-        
-        #plt.subplot(616)
-        rec6 = recordlijst[5]
-        re6 = rec6.plot(ax = ax6)
-        ax6.set_title(Frameskewlijst[5])
-
-        fig.tight_layout()
-
-        # shift subplots down:
-        st.set_y(0.95)
-        fig.subplots_adjust(top=0.90,bottom=0.05,hspace = 0.2)
-        
-        mng = plt.get_current_fig_manager()
-        mng.frame.Maximize(True)
-        
-        plt.show()
+#-----------------------------------------De functie voor het maken van de plots zelf-------------------------------------------------------------
     
-        
+def plotOpenReadingFrames(self, recordlijst, Frameskewlijst):
+    
+    fig, ((ax1, ax2, ax3), (ax4, ax5 , ax6)) = plt.subplots(nrows = 2, ncols = 3, figsize=(80, 80), sharex='col', sharey='row') #Het toewijzen van de plaatsen van de subplots en een gedeelde x en y-as
+    st = fig.suptitle("Reading Frames", fontsize="x-large") #De naam van de verzameling van de figuren
+
+    #plt.subplot(611)
+    rec1 = recordlijst[0] #Maak een variabele van de eerste index van de lijst met record objecten
+    re1 = rec1.plot(ax = ax1) #Plot dit object en wijs het plaats toe binnen het grote Figuur
+    ax1.set_title(Frameskewlijst[0]) #De titel wordt gezet
+
+    #plt.subplot(612)
+    rec2 = recordlijst[1]
+    re2 = rec2.plot(ax = ax2)
+    ax2.set_title(Frameskewlijst[1])
+
+    #plt.subplot(613)
+    rec3 = recordlijst[2]
+    re3 = rec3.plot(ax = ax3)
+    ax3.set_title(Frameskewlijst[2])
+
+    #plt.subplot(614)
+    rec4 = recordlijst[3]
+    re4 = rec4.plot(ax = ax4)
+    ax4.set_title(Frameskewlijst[3])
+
+    #plt.plot(615)
+    rec5 = recordlijst[4]
+    re5 = rec5.plot(ax = ax5)
+    ax5.set_title(Frameskewlijst[4])
+
+    #plt.subplot(616)
+    rec6 = recordlijst[5]
+    re6 = rec6.plot(ax = ax6)
+    ax6.set_title(Frameskewlijst[5])
+
+    fig.tight_layout() #Maak de layout tight
+    st.set_y(0.95) # shift subplots omlaag om ruimte te maken voor de Titel der Figuren
+    fig.subplots_adjust(top=0.90,bottom=0.05,hspace = 0.2) #De spacing van de Figuren
+
+    plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
+    
+    
+#-----------------------------------------Garbage code, DO NOT DELETE (may be useful later)-------------------------------------------------------------        
     
     #record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
     #plt.title(str(Frameskew)) #De titel wordt gezet

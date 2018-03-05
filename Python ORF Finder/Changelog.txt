@@ -19,3 +19,9 @@ In versie 0.32
 In versie 0.33
 --------------------------------------------------------------------------------------------
 1. Justin heeft alle Reading Frames in een plaatje gekregen.
+
+In versie 0.34
+--------------------------------------------------------------------------------------------
+1. Justin heeft meer comments toegevoegd en een structuur aangebracht met comments die functies groeperen.
+2. Justin heeft van de printOpenReadingFrames functie twee functies gemaakt.
+
