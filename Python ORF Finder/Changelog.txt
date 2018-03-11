@@ -25,3 +25,10 @@ In versie 0.34
 1. Justin heeft meer comments toegevoegd en een structuur aangebracht met comments die functies groeperen.
 2. Justin heeft van de printOpenReadingFrames functie twee functies gemaakt.
 
+In versie 0.35
+--------------------------------------------------------------------------------------------
+1. Justin heeft 3 radiobuttons toegevoegd voor iedere mogelijke weergave van de Reading Frames. (de knoppen werken nog niet, maar de functies wel en de knoppen zijn er in de GUI)
+2. Justin heeft de plotOpenReadingFrames functie korter gemaakt en hierin de drie opties van weergave gezet. De printOpenReadingFramesOneFigure functie is toegevoegd.
+
+
+
