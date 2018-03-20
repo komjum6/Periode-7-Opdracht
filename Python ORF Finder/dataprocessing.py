@@ -189,9 +189,19 @@ def findNextStopCodon(seq, start):
         # return None als er geen stop condons zijn
         return None
     
+#-----------------------------------------Functie voor het verkrijgen van de radioInt voor verwerking-----------------------------------------------------------------    
+#def retrieveRadioInt(self, radioInt = radioInt.get()):
+    #if radioInt == None:
+        #return None
+    #else:
+        #return radioInt
+    #, retrieveRadioInt(self, radioInt.get())
+    
 #-----------------------------------------Hieronder zijn functies voor het maken van de data van de plots-------------------------------------------------------------
     
 def findOpenReadingFrames(self, seq, seqje, Frameskew = -3, alternative_result = []):
+    
+    radioInt = self.radioInt.get() #Hier is het begin van radioInt in de Middle Tier (buiten de GUI)
     
     seqje = str(seqje)
     seqje = seqje.upper() #Hoofdletters
@@ -222,52 +232,63 @@ def findOpenReadingFrames(self, seq, seqje, Frameskew = -3, alternative_result =
                 result.append( (startPosition + Frameskew, stopPosition + Frameskew) )
                 alternative_result.append( (startPosition + Frameskew, stopPosition + Frameskew) )
                 
+    print(radioInt)
+                
     #Roep de volgende functies aan, de variabele Frameskew mag niet groter zijn dan 2
     if Frameskew != 3:
-        if -1 == 1:
+        if radioInt == 1 or radioInt == 2:
             findOpenReadingFrames(self, seq, seqje, Frameskew +1) #Recursie
-            printOpenReadingFrames(self, seq, seqje, result, Frameskew) #Gaat verder met de data in een volgende functie
-        if -1 == -1: #Placeholder natuurlijk
+            printOpenReadingFrames(self, seq, seqje, result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
+        if radioInt == 0: 
             findOpenReadingFrames(self, seq, seqje, Frameskew +1) #Recursie
             if Frameskew == 2:
-                printOpenReadingFramesOneFigure(self, seq, seqje, alternative_result, Frameskew)
+                printOpenReadingFramesOneFigure(self, seq, seqje, alternative_result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
     
-def printOpenReadingFrames(self, seq, seqje, result, Frameskew, recordlijst = [], Frameskewlijst = []):
-    #Er is geen Reading Frame 0
-    if Frameskew >=0:
-        Frameskew += 1
+def printOpenReadingFrames(self, seq, seqje, result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = [], MaxAanroep = 0):
     
-    features = []
-    displayString = ""
-    count = 0
-    for x in range(0,len(result)):
-        found_orf = seqje[slice(*result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
-        #print("This is ",count," index: ",found_orf)
-        
-        skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of nucleotiden worden weggegooid
-        if len(found_orf) % 3 == 1: 
-            skew = 1
-        if len(found_orf) % 3 == 2:
-            skew = 2
-        
-        displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
-        color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
-        features.append(GraphicFeature(start=result[count][0], end=result[count][1], strand=+1, color=color, label= str(count) + " Index ORF", labelcolor=color)) #Het toevoegen van de entries aan het figuur
-        #print("result count ",*result[count]) #Print de start en stoppositie van de ORF's
-        count += 1
+    MaxAanroep += 1
+    if MaxAanroep % 6 != 0:
+    
+        #Er is geen Reading Frame 0
+        if Frameskew >=0:
+            Frameskew += 1
 
-    self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
-    record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
-    
-    recordlijst.append(record) #Vul de lijst met recordobjecten
-    Frameskewlijst.append(str(Frameskew)) #Maak een string lijst met de Reading Frames voor de namen van de figuren
-    
-    if len(recordlijst) == 6: #Er zijn altijd maar 6 Reading Frames mogelijk
-        plotOpenReadingFrames(self, recordlijst, Frameskewlijst) #Aanroepen van de volgende functie
+        features = []
+        displayString = ""
+        count = 0
+        for x in range(0,len(result)):
+            found_orf = seqje[slice(*result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
+            #print("This is ",count," index: ",found_orf)
+
+            skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of wat meer nucleotiden worden weggegooid
+            if len(found_orf) % 3 == 1: 
+                skew = 1
+            if len(found_orf) % 3 == 2:
+                skew = 2
+
+            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
+            color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
+            features.append(GraphicFeature(start=result[count][0], end=result[count][1], strand=+1, color=color, label= str(count) + " Index ORF", labelcolor=color)) #Het toevoegen van de entries aan het figuur
+            #print("result count ",*result[count]) #Print de start en stoppositie van de ORF's
+            count += 1
+
+        self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
+        record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
+
+        recordlijst.append(record) #Vul de lijst met recordobjecten
+        Frameskewlijst.append(str(Frameskew)) #Maak een string lijst met de Reading Frames voor de namen van de figuren
+        
+        print(len(recordlijst))
+        
+        if len(recordlijst) == 6: #Er zijn altijd maar 6 Reading Frames mogelijk
+            plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt) #Aanroepen van de volgende functie
+    else:
+        recordlijst = []
+        Frameskewlijst = []
 
 #-----------------------------------------Een alternatieve functie voor het maken van de data van de plots-------------------------------------------
         
-def printOpenReadingFramesOneFigure(self, seq, seqje, alternative_result, Frameskew, recordlijst = [], Frameskewlijst = []): #Op het moment wordt deze functie nergens aangeroepen
+def printOpenReadingFramesOneFigure(self, seq, seqje, alternative_result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []): #Op het moment wordt deze functie nergens aangeroepen
     
     #Er is geen Reading Frame 0
     if Frameskew >=0:
@@ -299,29 +320,19 @@ def printOpenReadingFramesOneFigure(self, seq, seqje, alternative_result, Frames
     recordlijst.append(record) #Vul de lijst met recordobjecten
     Frameskewlijst.append(str(Frameskew)) #Maak een string lijst met de Reading Frames voor de namen van de figuren
     
-    plotOpenReadingFrames(self, recordlijst, Frameskewlijst) #Aanroepen van de volgende functie
+    plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt) #Aanroepen van de volgende functie
+    
         
 #-----------------------------------------De functie voor het maken van de plots zelf-------------------------------------------------------------
     
-def plotOpenReadingFrames(self, recordlijst, Frameskewlijst):
-    
-    radioInt = 0
+def plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt):
     
     if radioInt == 0:
         recordlijst[0].plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen 
         plt.title("Reading Frames") #De titel wordt gezet
         plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
-    
-    #if radioInt == 0: #.get()
-        #for record in recordlijst:
-            #record = record + record     #Strand = in GraphicFeature moet -1 zijn...
-        #for Frameskew in Frameskewlijst:
-                #record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen 
-                #plt.title(str(Frameskew)) #De titel wordt gezet
-                #plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
-    
-    if radioInt == 1: #.get()
+    if radioInt == 1: 
     
         fig, ((ax1, ax2, ax3), (ax4, ax5 , ax6)) = plt.subplots(nrows = 2, ncols = 3, figsize=(80, 80), sharex='col', sharey='row') #Het toewijzen van de plaatsen van de subplots en een gedeelde x en y-as
         st = fig.suptitle("Reading Frames", fontsize="x-large") #De naam van de verzameling van de figuren
@@ -338,20 +349,13 @@ def plotOpenReadingFrames(self, recordlijst, Frameskewlijst):
 
         plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
-    if radioInt == 2: #.get()
+    if radioInt == 2: 
         for record, Frameskew in zip(recordlijst, Frameskewlijst):
             record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen 
             plt.title(str(Frameskew)) #De titel wordt gezet
             plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
 #-----------------------------------------Garbage code, DO NOT DELETE (may be useful later)-------------------------------------------------------------        
-    
-    #record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen
-    #plt.title(str(Frameskew)) #De titel wordt gezet
-    
-    #plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
-    
-    
     
     #seq.set(str(result))
     #print(seq.get())
