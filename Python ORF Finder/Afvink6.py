@@ -1,3 +1,5 @@
+from yattag import Doc
+
 def main():
     DNAlijst = leesBestand()
     bepaalGCpercentage(DNAlijst)
@@ -39,10 +41,34 @@ def leesBestand():
 def bepaalGCpercentage(sequentielijst):
     for sequentie in sequentielijst:
         sequentie = sequentie.DNA
-        print(sequentie)
-        print((sequentie.count('G')+sequentie.count('C'))/len(sequentie))
+        gc = (sequentie.count('G')+sequentie.count('C'))/len(sequentie)
+        schrijfHTMLrapport(sequentie, gc)
 
-def schrijfHTMLrapport(gcPercentage, sequentie, bestandsnaam):
-    print("hey")
+def schrijfHTMLrapport(sequentie, gc):
+
+    doc, tag, text = Doc().tagtext()
+
+    with tag('html'):
+        with tag('body'):
+            with tag('p', id = 'main'):
+                text(sequentie + "\n" + str(gc) + "\n")
+            with tag('a', href='/my-url'):
+                text('some link\n')
+
+    result = doc.getvalue()
+    #Dit werkt alleen in Jupyter Notebook
+    from IPython.core.display import display, HTML
+    
+    display(HTML(result))
+    
+    s  = '<script type="text/Javascript">'
+    s += 'var win = window.open("", "Title", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=780, height=200, top="+(screen.height-400)+", left="+(screen.width-840));'
+    #s += 'win.document.body.innerHTML = \'' + result.to_html().replace("\n",'\\') + '\';' #voor dataframes vervang result door een dataframe, hiervoor is deze code gemaakt
+    s += '</script>'
+    
+    #display(HTML(s)) #result
+    
+    
+    #print(result)
 
 main()
