@@ -30,5 +30,11 @@ In versie 0.35
 1. Justin heeft 3 radiobuttons toegevoegd voor iedere mogelijke weergave van de Reading Frames. (de knoppen werken nog niet, maar de functies wel en de knoppen zijn er in de GUI)
 2. Justin heeft de plotOpenReadingFrames functie korter gemaakt en hierin de drie opties van weergave gezet. De printOpenReadingFramesOneFigure functie is toegevoegd.
 
+In versie 0.40
+--------------------------------------------------------------------------------------------
+1. Justin heeft de 3 radiobuttons laten werken waardoor er meerdere manieren zijn om de Reading Frames te zien. Er rest alleen nog een paar bugs die ervoor zorgen dat 2 knoppen niet meer werken nadat al een keer een Bestand is gelezen (De applicatie valt niet her te gebruiken). Omdat we deze repository ook willen gebruiken voor Afvink 6 gaat iedereen een branch maken, Teun en ik hebben er al een. 
+2. Teun is heel wat verder met Blast.py en heeft deze hernoemt naar BLASTING.py zodat nu nog maar gewerkt wordt met een bestand voor het blasten. Later gaat Teun nog een merge doen na deze commit aan zijn branch.
+
+
 
 
