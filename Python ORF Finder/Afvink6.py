@@ -3,15 +3,17 @@ def main():
     bepaalGCpercentage(DNAlijst)
 
 def leesBestand():
-    Filename = 'Generic Path'
+    Filename = 'D:\Bio-Infmap\Data\Periode_7\H5N1seq1.fasta' #Generic Fasta Path
     file = open(Filename, "r")
     class DNA:
         def __init__(self, header, DNA):
             self.header = header
             self.DNA = DNA
     
+    yconcat = ""
     DNAobjectlist = []
     headerlist = []
+    dnalijst = []
     
     for line in file:
         if line.startswith(">"):
@@ -26,14 +28,15 @@ def leesBestand():
     DNAobjectlist.append(yconcat)
     DNAobjectlist.pop(0) #Er is een keer een lege string toegevoegd.
     
+    indexcount = 0
     for header in headerlist: 
-        dna = DNA(headerlist[indexcount],DNAlist[indexcount])
+        dna = DNA(headerlist[indexcount],DNAobjectlist[indexcount])
         indexcount += 1
         dnalijst.append(dna)
     
     return dnalijst
 
-def bepaalGCpercentage(sequentie):
+def bepaalGCpercentage(sequentielijst):
     print("hey")
 
 def schrijfHTMLrapport(gcPercentage, sequentie, bestandsnaam):
