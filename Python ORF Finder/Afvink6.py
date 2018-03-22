@@ -37,7 +37,10 @@ def leesBestand():
     return dnalijst
 
 def bepaalGCpercentage(sequentielijst):
-    print("hey")
+    for sequentie in sequentielijst:
+        sequentie = sequentie.DNA
+        print(sequentie)
+        print((sequentie.count('G')+sequentie.count('C'))/len(sequentie))
 
 def schrijfHTMLrapport(gcPercentage, sequentie, bestandsnaam):
     print("hey")
