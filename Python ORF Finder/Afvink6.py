@@ -1,4 +1,3 @@
-from yattag import Doc
 
 def main():
     DNAlijst = leesBestand()
@@ -11,12 +10,12 @@ def leesBestand():
         def __init__(self, header, DNA):
             self.header = header
             self.DNA = DNA
-    
+
     yconcat = ""
     DNAobjectlist = []
     headerlist = []
     dnalijst = []
-    
+
     for line in file:
         if line.startswith(">"):
             x = line
@@ -24,18 +23,18 @@ def leesBestand():
             DNAobjectlist.append(yconcat)
             yconcat = ""
         if line.startswith(">") == False:
-            y = line 
+            y = line
             yconcat += y
 
     DNAobjectlist.append(yconcat)
     DNAobjectlist.pop(0) #Er is een keer een lege string toegevoegd.
-    
+
     indexcount = 0
-    for header in headerlist: 
+    for header in headerlist:
         dna = DNA(headerlist[indexcount],DNAobjectlist[indexcount])
         indexcount += 1
         dnalijst.append(dna)
-    
+
     return dnalijst
 
 def bepaalGCpercentage(sequentielijst):
@@ -44,31 +43,19 @@ def bepaalGCpercentage(sequentielijst):
         gc = (sequentie.count('G')+sequentie.count('C'))/len(sequentie)
         schrijfHTMLrapport(sequentie, gc)
 
-def schrijfHTMLrapport(sequentie, gc):
-
-    doc, tag, text = Doc().tagtext()
-
-    with tag('html'):
-        with tag('body'):
-            with tag('p', id = 'main'):
-                text(sequentie + "\n" + str(gc) + "\n")
-            with tag('a', href='/my-url'):
-                text('some link\n')
-
-    result = doc.getvalue()
-    #Dit werkt alleen in Jupyter Notebook
-    from IPython.core.display import display, HTML
+def schrijfHTMLrapport(gcPercentage, sequentie, bestandsnaam):
+    f = open(bestandsnaam+"_rapport.html", "w")
+    f.write("""
+        <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="style.css">
+        </head>
+        <body>
+            <h1>Your sequence: %s</h1>
+            <p>this sequence has been calculated to have a GC of %i</p>
+        </body>
+        </html>
+    """ %(sequentie, gcPercentage))
+    f.close()
     
-    display(HTML(result))
-    
-    s  = '<script type="text/Javascript">'
-    s += 'var win = window.open("", "Title", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=780, height=200, top="+(screen.height-400)+", left="+(screen.width-840));'
-    #s += 'win.document.body.innerHTML = \'' + result.to_html().replace("\n",'\\') + '\';' #voor dataframes vervang result door een dataframe, hiervoor is deze code gemaakt
-    s += '</script>'
-    
-    #display(HTML(s)) #result
-    
-    
-    #print(result)
-
 main()
