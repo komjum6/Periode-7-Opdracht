@@ -3,6 +3,7 @@ def main():
     DNAlijst = leesBestand()
     bepaalGCpercentage(DNAlijst)
 
+#Openen en lezen van bestand.
 def leesBestand():
     Filename = 'D:\Bio-Infmap\Data\Periode_7\H5N1seq1.fasta' #Generic Fasta Path
     file = open(Filename, "r")
@@ -37,6 +38,7 @@ def leesBestand():
 
     return dnalijst
 
+#berekening van het GC percentage van de sequentie.
 def bepaalGCpercentage(sequentielijst):
     for sequentie in sequentielijst:
         sequentie = sequentie.DNA
