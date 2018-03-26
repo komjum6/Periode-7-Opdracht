@@ -6,7 +6,9 @@ def main():
     bepaalGCpercentage(DNAlijst)
     schrijfHTMLrapport(DNAlijst, Filename)
 
+#Openen en lezen van bestand.
 def leesBestand(Filename):
+
     file = open(Filename, "r")
     class DNA:
         def __init__(self, header, DNA):
@@ -42,6 +44,7 @@ def leesBestand(Filename):
 
     return dnalijst
 
+#berekening van het GC percentage van de sequentie.
 def bepaalGCpercentage(sequentielijst):
     for sequentie in sequentielijst:
         rawSeq = sequentie.DNA
