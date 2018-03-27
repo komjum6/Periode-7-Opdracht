@@ -27,6 +27,11 @@ def main():
             save(mode=1, header=header[entry], forward=forw[entry], reverse=backw[entry])
             time.sleep(5)
 
+#run a local BLAST
+def local():
+    import os
+    os.system('LocalBlast.bat')
+    
 #Gets the forward and reverse sequences from the source dataset
 def getSeq():
 

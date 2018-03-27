@@ -1,3 +1,5 @@
 dna_features_viewer van https://pypi.python.org/pypi/dna_features_viewer/0.1.3
 Biopython
 Matplotlib
+
+local Blast software: ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/
