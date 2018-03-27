@@ -49,3 +49,6 @@ In versie 0.42
 In versie 0.43
 -------------------------------------------------------------------------------------------- 
 1. Een manier toegevoegd om op een index een header te kiezen in een Fasta bestand en daar de DNA van te verwerken. Die index valt te kiezen in de master (het hoofdmenu)
+-------------------------------------------------------------------------------------------
+1. Fasta wordt auto aangemaakt en batch file is geupdate door Luuk
+versie 0.44

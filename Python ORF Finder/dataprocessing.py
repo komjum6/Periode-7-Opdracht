@@ -276,7 +276,7 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
 #-----------------------------------------Een alternatieve functie voor het maken van de data van de plots-------------------------------------------
         
 def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []): 
-    
+    file=open("ORF.txt", "a")
     #Er is geen Reading Frame 0
     if Frameskew >=0:
         Frameskew += 1
@@ -287,6 +287,15 @@ def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, 
 
     for x in range(0,len(alternative_result)):
         found_orf = seqje[slice(*alternative_result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
+        
+                          
+        file.write(">ORF: ")
+        file.write(str(count))
+        file.write("\n")
+        file.write(str(found_orf))
+        file.write("\n")
+        file.write("\n")
+        
         #print("This is ",count," index: ",found_orf)
 
         #skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of nucleotiden worden weggegooid
@@ -306,7 +315,7 @@ def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, 
 
     recordlijst.append(record) #Vul de lijst met recordobjecten
     Frameskewlijst.append(str(Frameskew)) #Maak een string lijst met de Reading Frames voor de namen van de figuren
-
+    file.close()
     plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt) #Aanroepen van de volgende functie
     
         
