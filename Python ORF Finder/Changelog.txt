@@ -52,3 +52,6 @@ In versie 0.43
 -------------------------------------------------------------------------------------------
 1. Fasta wordt auto aangemaakt en batch file is geupdate door Luuk
 versie 0.44
+--------------------------------------------------------------------
+1. sh file voor linux aangemaakt om local te blasten
+versie 0.45
