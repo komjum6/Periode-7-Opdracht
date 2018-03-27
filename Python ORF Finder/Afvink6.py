@@ -1,16 +1,22 @@
 
 def main():
-    DNAlijst = leesBestand()
+    Filename = 'H5N1seq1.fasta' #Generic Fasta Path
+
+    DNAlijst = leesBestand(Filename)
     bepaalGCpercentage(DNAlijst)
+    schrijfHTMLrapport(DNAlijst, Filename)
 
 #Openen en lezen van bestand.
-def leesBestand():
-    Filename = 'D:\Bio-Infmap\Data\Periode_7\H5N1seq1.fasta' #Generic Fasta Path
+def leesBestand(Filename):
+
     file = open(Filename, "r")
     class DNA:
         def __init__(self, header, DNA):
             self.header = header
             self.DNA = DNA
+
+        def setGC(self, gc):
+            self.gcperc = gc
 
     yconcat = ""
     DNAobjectlist = []
@@ -41,23 +47,28 @@ def leesBestand():
 #berekening van het GC percentage van de sequentie.
 def bepaalGCpercentage(sequentielijst):
     for sequentie in sequentielijst:
-        sequentie = sequentie.DNA
-        gc = (sequentie.count('G')+sequentie.count('C'))/len(sequentie)
-        schrijfHTMLrapport(sequentie, gc)
+        rawSeq = sequentie.DNA
+        sequentie.setGC(float(rawSeq.count('G')+rawSeq.count('C'))/len(rawSeq)*100)
 
-def schrijfHTMLrapport(gcPercentage, sequentie, bestandsnaam):
-    f = open(bestandsnaam+"_rapport.html", "w")
-    f.write("""
+def schrijfHTMLrapport(sequenties, bestandsnaam):
+    htmlString = ""
+
+    htmlString += """
         <html>
-        <head>
-            <link rel="stylesheet" type="text/css" href="style.css">
-        </head>
         <body>
-            <h1>Your sequence: %s</h1>
-            <p>this sequence has been calculated to have a GC of %i</p>
+            <h1>%i sequences analysed</h1>
+        """%(len(sequenties))
+
+    for seq in sequenties:
+        htmlString += "<p>sequence %s has a GC percentage of %i</p>"%(seq.DNA, seq.gcperc)
+
+    htmlString += """
         </body>
         </html>
-    """ %(sequentie, gcPercentage))
+        """
+
+    f = open(bestandsnaam+"_rapport.html", "w")
+    f.write(htmlString)
     f.close()
-    
+
 main()
