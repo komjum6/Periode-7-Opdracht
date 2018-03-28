@@ -6,15 +6,6 @@
 from Bio.Blast import NCBIWWW, NCBIXML
 import cx_Oracle
 
-#BLASTs a sequence using BLASTx, the Non Redundant database, and BLOSUM62
-def blast(sequence):
-    os.system("blastx -query %s -db %s -out %s" %("bla"))
-    results = NCBIWWW.qblast('blastx', 'nr', sequence, matrix_name='BLOSUM62')
-    #    print(results.read())
-    #    save(NCBIXML.read(result))
-    return NCBIXML.read(results)
-
-
 #run a local BLAST
 def local():
     import os
