@@ -135,12 +135,7 @@ aminoAcidMap = {                #Een aminozuurdictionary
                 'TNA' : 'X',
                 'ATN' : 'X',
                 'NCG' : 'X',
-                'NNN' : 'X',
-                'NTT' : 'X',
-                'CCN' : 'X',
-                'GGN' : 'X',
-                'TTN' : 'X',
-                'NGG' : 'X'
+                'NNN' : 'X'
                 } 
 
 StartCodon = 'ATG'
@@ -231,17 +226,17 @@ def findOpenReadingFrames(self, seqje, Frameskew = -3, alternative_result = []):
                 
     #Roep de volgende functies aan, de variabele Frameskew mag niet groter zijn dan 2
     if Frameskew != 3:
-        if radioInt == 1 or radioInt == 2:
+        if radioInt == 1 or radioInt == 2: #Welke functie gekozen wordt is afhankelijk van de gekozen radiobutton
             findOpenReadingFrames(self, seqje, Frameskew +1) #Recursie
             printOpenReadingFrames(self, seqje, result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
-        if radioInt == 0: 
+        if radioInt == 0: #Welke functie gekozen wordt is afhankelijk van de gekozen radiobutton 
             findOpenReadingFrames(self, seqje, Frameskew +1) #Recursie
             if Frameskew == 2:
                 printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
     
 def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []):
     
-    file=open("ORF.txt", "w") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
     
     #Er is geen Reading Frame 0
     if Frameskew >=0:
@@ -252,7 +247,7 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
     count = 0
     for x in range(0,len(result)):
         found_orf = seqje[slice(*result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
-        file.write(">ORF: " + str(Frameskew) +  "|" + str(result[count]) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand
+        file.write(">ORF: " + str(count) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand
 
         skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of wat meer nucleotiden worden weggegooid
         if len(found_orf) % 3 == 1: 
@@ -283,7 +278,7 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
         
 def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []): 
     
-    file=open("ORF.txt", "w") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
     
     #Er is geen Reading Frame 0
     if Frameskew >=0:
@@ -295,7 +290,7 @@ def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, 
 
     for x in range(0,len(alternative_result)):
         found_orf = seqje[slice(*alternative_result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
-        file.write(">ORF: " + str(Frameskew) + "|" + str(alternative_result[count]) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand 
+        file.write(">ORF: " + str(count) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand 
 
         #skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of nucleotiden worden weggegooid
         #if len(found_orf) % 3 == 1: 
