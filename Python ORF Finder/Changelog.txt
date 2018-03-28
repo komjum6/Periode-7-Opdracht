@@ -1,5 +1,5 @@
 Dit is de changelog, hier worden de toevoegingen besproken per verandering.
-Gelieve deze aan te passen bij iedere commit. 
+Gelieve deze aan te passen bij iedere commit.
 
 In versie 0.3
 --------------------------------------------------------------------------------------------
@@ -32,22 +32,22 @@ In versie 0.35
 
 In versie 0.40
 --------------------------------------------------------------------------------------------
-1. Justin heeft de 3 radiobuttons laten werken waardoor er meerdere manieren zijn om de Reading Frames te zien. Er rest alleen nog een paar bugs die ervoor zorgen dat 2 knoppen niet meer werken nadat al een keer een Bestand is gelezen (De applicatie valt niet her te gebruiken). Omdat we deze repository ook willen gebruiken voor Afvink 6 gaat iedereen een branch maken, Teun en ik hebben er al een. 
+1. Justin heeft de 3 radiobuttons laten werken waardoor er meerdere manieren zijn om de Reading Frames te zien. Er rest alleen nog een paar bugs die ervoor zorgen dat 2 knoppen niet meer werken nadat al een keer een Bestand is gelezen (De applicatie valt niet her te gebruiken). Omdat we deze repository ook willen gebruiken voor Afvink 6 gaat iedereen een branch maken, Teun en ik hebben er al een.
 2. Teun is heel wat verder met Blast.py en heeft deze hernoemt naar BLASTING.py zodat nu nog maar gewerkt wordt met een bestand voor het blasten. Later gaat Teun nog een merge doen na deze commit aan zijn branch.
 
 
 
 
  In versie 0.41
--------------------------------------------------------------------------------------------- 
+--------------------------------------------------------------------------------------------
 1. Local Blast toegevoegd door Luuk
 
 In versie 0.42
--------------------------------------------------------------------------------------------- 
+--------------------------------------------------------------------------------------------
 1. Kleine aanpassingen van Justin
 
 In versie 0.43
--------------------------------------------------------------------------------------------- 
+--------------------------------------------------------------------------------------------
 1. Justin: Een manier toegevoegd om op een index een header te kiezen in een Fasta bestand en daar de DNA van te verwerken. Die index valt te kiezen in de master (het hoofdmenu)
 In versie 0.44
 -------------------------------------------------------------------------------------------
@@ -61,5 +61,7 @@ In versie 0.46
 --------------------------------------------------------------------
 1. Kleine aanpassingen door Justin
 
-
-
+In versie 0.47
+--------------------------------------------------------------------
+1. Teun heeft BLASTING.py geupdate
+2. Teun heeft Database.py een query functie gegeven

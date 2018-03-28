@@ -3,7 +3,6 @@
 # Version 1.0
 
 
-from Bio.Blast import NCBIWWW, NCBIXML
 import cx_Oracle
 
 #run a local BLAST
