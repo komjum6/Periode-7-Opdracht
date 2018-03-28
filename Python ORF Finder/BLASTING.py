@@ -6,10 +6,11 @@
 #import time
 from Bio.Blast import NCBIWWW, NCBIXML
 #from Bio import Entrez
-import mysql.connector
+import cx_Oracle
 
 #BLASTs a sequence using BLASTx, the Non Redundant database, and BLOSUM62
 def blast(sequence):
+    os.system("blastx -query %s -db %s -out %s" %("bla"))
     results = NCBIWWW.qblast('blastx', 'nr', sequence, matrix_name='BLOSUM62')
     #    print(results.read())
     #    save(NCBIXML.read(result))
@@ -62,11 +63,7 @@ def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
     if mode == 0:
         print('Saving results to database')
 
-    conn = mysql.connector.connect(
-        host='127.0.0.1',
-        user='owe4_bi1a_1',
-        db='owe4_bi1_9',
-        passwd='blaat1234')
+    conn = cx_Oracle.connect("owe7_pg1", "blaat1234", "cytosine.nl")
 
     cursor = conn.cursor()
 
@@ -99,6 +96,3 @@ def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
     if mode == 1:
         print('Saved results to database')
         print('')
-
-
-res = blast()
