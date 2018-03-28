@@ -1,12 +1,13 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 # Autors: Bertram Hutten, Luuk van Damme, Teun van Duffelen en Justin Huberts
 # Date of creation: around the beginning of February (the second, the third or anything like it)
 # Functionality: It's possible to find ORF's in a given Fasta file with this application. It visualises them and it sends them to a database.
 # It's also possible to retrieve the information form that database using this application. 
+# The user can choose between a single Fasta file or a Multiple Fasta file using the input index which defaults to index 0, the first entry.
 # Known Bugs: It's currently not possible to load multiple fasta files after each other, you have to restart the application. 
 # Also, some Fasta files containing N's don't work, for example SD.fa. (example we used)
 # TO_ADD: blastbutton (Na het inlezen, voor één of alle reading frames)
@@ -29,6 +30,8 @@ class ORFGUI(Frame):
             self.radioInt.set(0) #Default waarde, als geen radiobutton wordt gekozen
             self.headerInt = IntVar() #Een integer voor het kiezen van de Header in de Fasta
             self.headerInt.set(0) #Default waarde, als geen entry wordt ingevoerd
+            self.CheckBlast = IntVar() #Een integer om het Blasten aan of uit te zetten
+            #self.CheckBlast.set(0) #Default waarde, als geen entry wordt ingevoerd
             #self = self #Laat de code zichzelf in de ogen kijken door 'm een spiegel voor te leggen...
             
             #Het maken van de master, het hoofdscherm
@@ -54,18 +57,18 @@ class ORFGUI(Frame):
             self.LabelEntry = Label(master, text="Input Index Fasta",foreground="blue",font=("Helvetica", 12))
             self.LabelEntry.grid(row=3, sticky=W)
             
-            self.label = Label(master, text ="ORF IN DNA",foreground="red",font=("Helvetica", 16)) #Het maken van een label
-            self.label.grid(row=4) #De label toevoegen aan het 'grid', rij 1
+            self.CheckBlastButton = Checkbutton(master, text = "Perform Blast", variable = self.CheckBlast, onvalue = 1, offvalue = 0, height=5, width = 20)
+            self.CheckBlastButton.grid(row=4)
             
-            #progressbar = ttk.Progressbar(master, orient='horizontal', mode='determinate')
-            #progressbar.grid(row=3,padx=5, pady=5) #Dit heeft een waarde tussen 0 en 100
+            self.label = Label(master, text ="ORF IN DNA",foreground="red",font=("Helvetica", 16)) #Het maken van een label
+            self.label.grid(row=5) #De label toevoegen aan het 'grid', rij 1
             
             self.textframe = Frame(master, width=400, height=400) #Dit wordt toch veranderd, dus 400 x 400 is onnodig
-            self.textframe.grid(row=5) #Het frame toevoegen aan het 'grid', rij 2
+            self.textframe.grid(row=6) #Het frame toevoegen aan het 'grid', rij 2
             self.text = Text(self.textframe, height=6, width=30) #Het maken van een textblok in het frame
-            self.text.grid(row=5, column=0, sticky="nsew", padx=5, pady=5) #Het textblok toevoegen aan het 'grid', rij 2, in het frame
+            self.text.grid(row=6, column=0, sticky="nsew", padx=5, pady=5) #Het textblok toevoegen aan het 'grid', rij 2, in het frame
             self.scrollbar = Scrollbar(self.textframe, orient="vertical", command = self.text.yview) #Het maken van een scrollbar
-            self.scrollbar.grid(row=5, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 2, in het frame
+            self.scrollbar.grid(row=6, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 2, in het frame
             self.text['yscrollcommand'] = self.scrollbar.set #De scrollbar een commando meegeven
             
             root.mainloop() #Het uitvoeren van de mainloop
@@ -103,4 +106,9 @@ perms = list(set(perms))
             
 for p in perms:
     print("'" + p + "'" + " : " + "'X'" + ",") 
+
+
+# In[2]:
+
+import platform
 
