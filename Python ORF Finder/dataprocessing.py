@@ -236,7 +236,10 @@ def findOpenReadingFrames(self, seqje, Frameskew = -3, alternative_result = []):
     
 def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []):
     
-    file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    try:
+        file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    except PermissionError:
+        messagebox.showerror("Warningmessage", "Permission to write File to directory or open it denied")
     
     #Er is geen Reading Frame 0
     if Frameskew >=0:
@@ -278,8 +281,11 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
         
 def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []): 
     
-    file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
-    
+    try:
+        file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    except PermissionError:
+        messagebox.showerror("Warningmessage", "Permission to write File to directory or open it denied")
+        
     #Er is geen Reading Frame 0
     if Frameskew >=0:
         Frameskew += 1

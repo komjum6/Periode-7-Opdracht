@@ -67,7 +67,7 @@ def CreateHelpWindow(self, master):
     self.HelpWindow = tk.Toplevel(master) #Maakt een nieuwe window om de gebruiker te helpen
     self.HelpWindowbutton.config(text="New Window Already Active",state="disabled") #Maakt de button inactief
     
-    self.Hulptextframe = tk.Frame(self.HelpWindow) #Dit wordt toch veranderd, dus 400 x 400 is eigenlijk onnodig
+    self.Hulptextframe = tk.Frame(self.HelpWindow) #Het maken van een Frame
     self.Hulptextframe.grid(row=0) #Het frame toevoegen aan het 'grid', rij 6
     self.Hulptext = tk.Text(self.Hulptextframe, height=6, width=70) #Het maken van een textblok in het frame
     self.Hulptext.grid(row=0, column=0, sticky="nsew", padx=5, pady=5) #Het textblok toevoegen aan het 'grid', rij 6, in het frame
@@ -75,7 +75,7 @@ def CreateHelpWindow(self, master):
     self.Hulpscrollbar.grid(row=0, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 6, in het frame
     self.Hulptext['yscrollcommand'] = self.Hulpscrollbar.set #De scrollbar een commando meegeven
     
-    self.Hulptext.insert(END, "De stappen die U moet ondernemen om te werken met onze software zijn:\n1. Kies uw manier van display van de ORF's\n2. Kies een index om een bepaalde nucleotidesequentie binnen een Fasta bestand te gebruiken (optioneel)\n3. Maak de keuze of U kiest voor het Blasten van de resultaten of niet\n4. Druk op de knop voor het laden en vinden van ORF's\n5. Kies een bestand (Het liefst een .Fasta)\n6. Aanschouw en Enjoy")
+    self.Hulptext.insert(END, "De stappen die U moet ondernemen om te werken met onze software zijn:\n1. Kies uw manier van display van de ORF's\n2. Kies een index om een bepaalde nucleotidesequentie binnen een Fasta bestand te gebruiken (optioneel)\n3. Maak de keuze of U kiest voor het Blasten van de resultaten of niet\n4. Druk op de knop voor het laden en vinden van ORF's\n5. Kies een bestand (Het liefst een .Fasta)\n6. Aanschouw en Enjoy\n\nPS: Er zijn bugs, herstart dan")
     
     master.wait_window(self.HelpWindow) #Checkt of de window niet gesloten is
     if not self.HelpWindow.winfo_exists(): #Als de window gesloten is kijkt het of het nog bestaat

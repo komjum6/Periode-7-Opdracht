@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 # Autors: Bertram Hutten, Luuk van Damme, Teun van Duffelen en Justin Huberts
 # Date of creation: around the beginning of February (the second, the third or anything like it)
@@ -85,7 +85,10 @@ class ORFGUI(Frame):
           
     
 if __name__ == "__main__":
-    root = Tk()
-    my_gui = ORFGUI(root)
+    try:
+        root = Tk()
+        my_gui = ORFGUI(root)
+    except Exception as x:
+            messagebox.showerror("Warningmessage", "A Rare Random Error appeared" + "\n" + str(x)) #Alle mogelijke andere errors die de applicatie kan hebben worden afgevangen
 
 
