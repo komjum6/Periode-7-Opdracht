@@ -74,3 +74,6 @@ In versie 0.48
 --------------------------------------------------------------------
 1. Teun heeft BLASTING.py geupdate
 2. Teun heeft Database.py een query functie gegeven
+
+--------------------------------------------------------------------1. batch en sh file naar xml output gemaakt/evalue cutoff weg gehaald 
+2. naar fasta schrijven frame en position toegevoegd door Luuk

@@ -3,7 +3,6 @@
 # Version 1.0
 
 import cx_Oracle
-
 UN = "owe7_pg1"
 PW = "blaat1234"
 ADDR = "cytosine.nl"
@@ -16,4 +15,4 @@ def query(query):
 
 result = query("""SELECT * FROM FRAME""")
 for frame in result:
-    print frame
+    print(frame)
