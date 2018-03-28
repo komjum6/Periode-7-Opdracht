@@ -2,7 +2,6 @@
 # By Teun van Duffelen, for HAN
 # Version 1.0
 
-
 import cx_Oracle
 
 #run a local BLAST

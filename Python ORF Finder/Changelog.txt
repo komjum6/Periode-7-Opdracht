@@ -70,7 +70,7 @@ In versie 0.47
 
 #comment: Bertram heeft ook gewerkt aan de Exceptionhandling, maar hij is ziek wanneer ik dit commit en hij heeft nog niet zijn werk van laatst gecommit of die commit is niet doorgekomen
 
-In versie 0.47
+In versie 0.48
 --------------------------------------------------------------------
 1. Teun heeft BLASTING.py geupdate
 2. Teun heeft Database.py een query functie gegeven
