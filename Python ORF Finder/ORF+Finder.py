@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 # Autors: Bertram Hutten, Luuk van Damme, Teun van Duffelen en Justin Huberts
 # Date of creation: around the beginning of February (the second, the third or anything like it)
@@ -30,8 +30,7 @@ class ORFGUI(Frame):
             self.radioInt.set(0) #Default waarde, als geen radiobutton wordt gekozen
             self.headerInt = IntVar() #Een integer voor het kiezen van de Header in de Fasta
             self.headerInt.set(0) #Default waarde, als geen entry wordt ingevoerd
-            self.CheckBlast = IntVar() #Een integer om het Blasten aan of uit te zetten
-            #self.CheckBlast.set(0) #Default waarde, als geen entry wordt ingevoerd
+            self.CheckBlastInt = IntVar() #Een integer om het Blasten aan of uit te zetten
             #self = self #Laat de code zichzelf in de ogen kijken door 'm een spiegel voor te leggen...
             
             #Het maken van de master, het hoofdscherm
@@ -41,40 +40,40 @@ class ORFGUI(Frame):
             self.button.bind("<Button-1>") #De button vertellen wat voor actie het activeerd            
             self.button.grid(row=0) #De button toevoegen aan het 'grid', rij 0
             
-            self.radiobuttonsingle = Radiobutton(master, text="All Reading Frames\nin one Figure", value=1, variable=self.radioInt, command=self.radioInt.set(0))
-            self.radiobuttonsingle.config(indicatoron=0, bd=4, width=15, value=0)
-            self.radiobuttonsingle.grid(row=1, column=0, padx=10, pady=5, sticky=W)
-            self.radiobuttonmultiple = Radiobutton(master, text="All Reading Frames\nin seperate Figures", value=2, variable=self.radioInt, command=self.radioInt.set(1))
-            self.radiobuttonmultiple.config(indicatoron=0, bd=4, width=15, value=1)
-            self.radiobuttonmultiple.grid(row=1, column=0, padx=10, pady=5, sticky=E)
+            self.radiobuttonsingle = Radiobutton(master, text="All Reading Frames\nin one Figure", value=1, variable=self.radioInt, command=self.radioInt.set(0)) #Een button om deze manier van grafiekdisplay te kiezen
+            self.radiobuttonsingle.config(indicatoron=0, bd=4, width=15, value=0) #Dit maakt de button een vierhoek ipv een cirkel
+            self.radiobuttonsingle.grid(row=1, column=0, padx=10, pady=5, sticky=W) #De button toevoegen aan het 'grid', rij 1. De sticky zorgt ervoor dat het links wordt toegevoegd.
+            self.radiobuttonmultiple = Radiobutton(master, text="All Reading Frames\nin seperate Figures", value=2, variable=self.radioInt, command=self.radioInt.set(1)) #Een button om deze manier van grafiekdisplay te kiezen
+            self.radiobuttonmultiple.config(indicatoron=0, bd=4, width=15, value=1) #Dit maakt de button een vierhoek ipv een cirkel
+            self.radiobuttonmultiple.grid(row=1, column=0, padx=10, pady=5, sticky=E) #De button toevoegen aan het 'grid', rij 1. De sticky zorgt ervoor dat het rechts wordt toegevoegd.
             
-            self.radiobuttonmultipleBig = Radiobutton(master, text="All Reading Frames\nin seperate Big Figures", value=3, variable=self.radioInt, command=self.radioInt.set(2))
-            self.radiobuttonmultipleBig.config(indicatoron=0, bd=4, width=20, value=2)
-            self.radiobuttonmultipleBig.grid(row=2, column=0, padx=10, pady=5)
+            self.radiobuttonmultipleBig = Radiobutton(master, text="All Reading Frames\nin seperate Big Figures", value=3, variable=self.radioInt, command=self.radioInt.set(2)) #Een button om deze manier van grafiekdisplay te kiezen
+            self.radiobuttonmultipleBig.config(indicatoron=0, bd=4, width=20, value=2) #Dit maakt de button een vierhoek ipv een cirkel
+            self.radiobuttonmultipleBig.grid(row=2, column=0, padx=10, pady=5) #De button toevoegen aan het 'grid', rij 2.
             
-            self.Entry = Entry(master, bd=5)
-            self.Entry.grid(row=3, sticky=E)
-            self.LabelEntry = Label(master, text="Input Index Fasta",foreground="blue",font=("Helvetica", 12))
-            self.LabelEntry.grid(row=3, sticky=W)
+            self.Entry = Entry(master, bd=5) #Een balkje om indeces in te voegen wordt aangemaakt
+            self.Entry.grid(row=3, sticky=E) #De button toevoegen aan het 'grid', rij 3. De sticky zorgt ervoor dat het rechts wordt toegevoegd.
+            self.LabelEntry = Label(master, text="Input Index Fasta",foreground="blue",font=("Helvetica", 12)) #Voor de Entry wordt een label gemaakt
+            self.LabelEntry.grid(row=3, sticky=W) #De button toevoegen aan het 'grid', rij 3. De sticky zorgt ervoor dat het links wordt toegevoegd.
             
-            self.CheckBlastButton = Checkbutton(master, text = "Perform Blast", variable = self.CheckBlast, onvalue = 1, offvalue = 0, height=5, width = 20)
-            self.CheckBlastButton.grid(row=4)
+            self.CheckBlastButton = Checkbutton(master, text = "Perform Blast", variable = self.CheckBlastInt, onvalue = 1, offvalue = 0, height=5, width = 10) #Een button om te Blasten of niet
+            self.CheckBlastButton.grid(row=4) #De button toevoegen aan het 'grid', rij 4.
             
             self.label = Label(master, text ="ORF IN DNA",foreground="red",font=("Helvetica", 16)) #Het maken van een label
-            self.label.grid(row=5) #De label toevoegen aan het 'grid', rij 1
+            self.label.grid(row=5) #De label toevoegen aan het 'grid', rij 5
             
-            self.textframe = Frame(master, width=400, height=400) #Dit wordt toch veranderd, dus 400 x 400 is onnodig
-            self.textframe.grid(row=6) #Het frame toevoegen aan het 'grid', rij 2
+            self.textframe = Frame(master, width=400, height=400) #Dit wordt toch veranderd, dus 400 x 400 is eigenlijk onnodig
+            self.textframe.grid(row=6) #Het frame toevoegen aan het 'grid', rij 6
             self.text = Text(self.textframe, height=6, width=30) #Het maken van een textblok in het frame
-            self.text.grid(row=6, column=0, sticky="nsew", padx=5, pady=5) #Het textblok toevoegen aan het 'grid', rij 2, in het frame
+            self.text.grid(row=6, column=0, sticky="nsew", padx=5, pady=5) #Het textblok toevoegen aan het 'grid', rij 6, in het frame
             self.scrollbar = Scrollbar(self.textframe, orient="vertical", command = self.text.yview) #Het maken van een scrollbar
-            self.scrollbar.grid(row=6, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 2, in het frame
+            self.scrollbar.grid(row=6, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 6, in het frame
             self.text['yscrollcommand'] = self.scrollbar.set #De scrollbar een commando meegeven
             
             root.mainloop() #Het uitvoeren van de mainloop
             
         except TclError:
-            print("TclError") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
+            messagebox.showerror("Warningmessage", "TclError") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
         
     def __del__(self):
         class_name = self.__class__.__name__
@@ -85,30 +84,4 @@ if __name__ == "__main__":
     root = Tk()
     my_gui = ORFGUI(root)
 
-
-
-# In[ ]:
-
-from itertools import permutations
-
-x = 'CGATNNN'
-
-
-perms = []
-
-for i in range(1, len(x)+1):
-    for c in permutations(x, i):
-        if len(c) == 3:
-            if "N" in c:
-                perms.append("".join(c))
-                    
-perms = list(set(perms))
-            
-for p in perms:
-    print("'" + p + "'" + " : " + "'X'" + ",") 
-
-
-# In[2]:
-
-import platform
 
