@@ -60,6 +60,15 @@ In versie 0.45
 In versie 0.46
 --------------------------------------------------------------------
 1. Kleine aanpassingen door Justin
+2. Blastbutton toegevoegd
+
+In versie 0.47
+--------------------------------------------------------------------
+1. Van load_file zijn drie functies gemaakt (Justin)
+2. Extra comments zijn toegevoegd (Justin)
+3. Exceptionhandling (Justin)
+
+#comment: Bertram heeft ook gewerkt aan de Exceptionhandling, maar hij is ziek wanneer ik dit commit en hij heeft nog niet zijn werk van laatst gecommit of die commit is niet doorgekomen
 
 
 
