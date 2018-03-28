@@ -77,3 +77,4 @@ In versie 0.48
 
 --------------------------------------------------------------------1. batch en sh file naar xml output gemaakt/evalue cutoff weg gehaald 
 2. naar fasta schrijven frame en position toegevoegd door Luuk
+dsfsdsfewgewtewtehrwerqwet
