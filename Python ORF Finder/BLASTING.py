@@ -14,27 +14,29 @@ def blast(sequence):
     #    save(NCBIXML.read(result))
     return NCBIXML.read(results)
 
+
 #run a local BLAST
 def local():
     import os
     os.system('LocalBlast.bat')
 
-# Gets the required data from the input alignment, the data fetched is alignment title, protein name, protein accession, e-value, identity score, organism name, and organism family, genus, and species names
+#Gets the required data from the input alignment, the data fetched is alignment title, protein name, protein accession,
+#e-value, identity score, organism name, and organism family, genus, and species names
 def getData(alignment, ID, header):
     print('Fetching data from results.')
     for hsp in alignment.hsps:
         title = alignment.title
-        protName = title[title.index(' ') + 1:title.index('[') - 1]
+        protName = title[title.index(' ')+1:title.index('[')-1]
         access = alignment.accession
         evalue = hsp.expect
-        identity = (float(hsp.positives) / float(hsp.align_length)) * 100
-        orgName = title[title.index('[') + 1:title.index(']')]
+        identity = (float(hsp.positives)/float(hsp.align_length))*100
+        orgName = title[title.index('[')+1:title.index(']')]
 
-        # print(orgName)
+        #print(orgName)
         family, genus, species = getTax(access)
         if ' ' in orgName:
             if genus == orgName[:orgName.index(' '):]:
-                species = orgName[orgName.index(' ') + 1:]
+                species = orgName[orgName.index(' ')+1:]
                 species = species[0].upper() + species[1:]
 
         if ' ' in orgName:
@@ -58,7 +60,7 @@ def getData(alignment, ID, header):
              protname=protName, orgname=orgName,
              family=family, genus=genus, species=species)
 
-# Saves the results of the getData function, as well as both DNA sequences, the header of these sequences, and an ID number for the results
+#Saves the results of the getData function, as well as both DNA sequences, the header of these sequences, and an ID number for the results
 def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
          blastID='NULL', accesscode='NULL', evalue='NULL', identity='NULL',
          protname='NULL', orgname='NULL',
@@ -72,14 +74,12 @@ def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
 
     if blastID != 'NULL' and header != 'NULL' and accesscode != 'NULL' and evalue != 'NULL' and identity != 'NULL' and mode == 0:
         cursor.execute("""INSERT INTO `Blast_Results` (`Blast_ID`, `Header`, `Access_code`, `E-value`, `Percent_identity`)
-                       VALUES ("%s", "%s", "%s", "%s", "%s")""" % (
-        blastID, header, accesscode, str(evalue), str(identity)))
+                       VALUES ("%s", "%s", "%s", "%s", "%s")""" % (blastID, header, accesscode, str(evalue), str(identity)))
         print('25%')
     time.sleep(2)
     cursor.execute("SELECT `Organism_ID` FROM `Micro-organisms`")
     rows = cursor.fetchall()
-    if orgname != 'NULL' and family != 'NULL' and genus != 'NULL' and species != 'NULL' and mode == 0 and orgname not in str(
-            rows):
+    if orgname != 'NULL' and family != 'NULL' and genus != 'NULL' and species != 'NULL' and mode == 0 and orgname not in str(rows):
         cursor.execute("""INSERT INTO `Micro-organisms` (`Organism_ID`, `Family`, `Genus`, `Species`)
                        VALUES ("%s", "%s", "%s", "%s")""" % (orgname, family, genus, species))
         print('50%')
