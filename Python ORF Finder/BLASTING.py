@@ -3,9 +3,7 @@
 # Version 1.0
 
 
-#import time
 from Bio.Blast import NCBIWWW, NCBIXML
-#from Bio import Entrez
 import cx_Oracle
 
 #BLASTs a sequence using BLASTx, the Non Redundant database, and BLOSUM62
@@ -15,6 +13,11 @@ def blast(sequence):
     #    print(results.read())
     #    save(NCBIXML.read(result))
     return NCBIXML.read(results)
+
+#run a local BLAST
+def local():
+    import os
+    os.system('LocalBlast.bat')
 
 # Gets the required data from the input alignment, the data fetched is alignment title, protein name, protein accession, e-value, identity score, organism name, and organism family, genus, and species names
 def getData(alignment, ID, header):
