@@ -135,12 +135,7 @@ aminoAcidMap = {                #Een aminozuurdictionary
                 'TNA' : 'X',
                 'ATN' : 'X',
                 'NCG' : 'X',
-                'NNN' : 'X',
-                'NTT' : 'X',
-                'CCN' : 'X',
-                'GGN' : 'X',
-                'TTN' : 'X',
-                'NGG' : 'X'
+                'NNN' : 'X'
                 } 
 
 StartCodon = 'ATG'
@@ -231,17 +226,20 @@ def findOpenReadingFrames(self, seqje, Frameskew = -3, alternative_result = []):
                 
     #Roep de volgende functies aan, de variabele Frameskew mag niet groter zijn dan 2
     if Frameskew != 3:
-        if radioInt == 1 or radioInt == 2:
+        if radioInt == 1 or radioInt == 2: #Welke functie gekozen wordt is afhankelijk van de gekozen radiobutton
             findOpenReadingFrames(self, seqje, Frameskew +1) #Recursie
             printOpenReadingFrames(self, seqje, result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
-        if radioInt == 0: 
+        if radioInt == 0: #Welke functie gekozen wordt is afhankelijk van de gekozen radiobutton 
             findOpenReadingFrames(self, seqje, Frameskew +1) #Recursie
             if Frameskew == 2:
                 printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt) #Gaat verder met de data in een volgende functie
     
 def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []):
     
-    file=open("ORF.txt", "w") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    try:
+        file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    except PermissionError:
+        messagebox.showerror("Warningmessage", "Permission to write File to directory or open it denied")
     
     #Er is geen Reading Frame 0
     if Frameskew >=0:
@@ -252,7 +250,7 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
     count = 0
     for x in range(0,len(result)):
         found_orf = seqje[slice(*result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
-        file.write(">ORF: " + str(Frameskew) +  "|" + str(result[count]) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand
+        file.write(">ORF: " + str(count) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand
 
         skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of wat meer nucleotiden worden weggegooid
         if len(found_orf) % 3 == 1: 
@@ -283,8 +281,11 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
         
 def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, radioInt, recordlijst = [], Frameskewlijst = []): 
     
-    file=open("ORF.txt", "w") #Het maken van een textbestand waar de informatie over de ORF's in komt
-    
+    try:
+        file=open("ORF.txt", "a") #Het maken van een textbestand waar de informatie over de ORF's in komt
+    except PermissionError:
+        messagebox.showerror("Warningmessage", "Permission to write File to directory or open it denied")
+        
     #Er is geen Reading Frame 0
     if Frameskew >=0:
         Frameskew += 1
@@ -295,23 +296,23 @@ def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, 
 
     for x in range(0,len(alternative_result)):
         found_orf = seqje[slice(*alternative_result[count])].replace("\n","") #Door de index te veranderen is door de ORF's te bladeren, de replace was nodig vanwege de irritante \n's
-        file.write(">ORF: " + str(Frameskew) + "|" + str(alternative_result[count]) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand 
+        file.write(">ORF: " + str(count) + "\n" + str(found_orf) + "\n") #Het schrijven van de informatie over de ORF's in het textbestand 
 
-        #skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of nucleotiden worden weggegooid
-        #if len(found_orf) % 3 == 1: 
-        #    skew = 1
-        #if len(found_orf) % 3 == 2:
-        #    skew = 2
+        skew = 0 #Dit is een lelijke manier om Aminozuren te verkrijgen, beide als code en omdat er 1 of nucleotiden worden weggegooid
+        if len(found_orf) % 3 == 1: 
+            skew = 1
+        if len(found_orf) % 3 == 2:
+            skew = 2
 
-        #try:
-            #displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\nPosities " + str(result[count]) + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
-        #except KeyError:
-        #    messagebox.showerror("Warningmessage", "KeyError")
+        try:
+            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\nPosities " + str(result[count]) + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
+        except KeyError:
+            messagebox.showerror("Warningmessage", "KeyError")
         color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
         features.append(GraphicFeature(start=alternative_result[count][0], end=alternative_result[count][1], strand=+1, color=color, label= str(count) + " Index ORF", labelcolor=color)) #Het toevoegen van de entries aan het figuur
         count += 1
 
-    #self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
+    self.text.insert(END, displayString) #De orf's als strings laten zien in de GUI
     record = GraphicRecord(sequence_length=len(seqje), features=features) #Het maken van een figuur met de ORF's
 
     recordlijst.append(record) #Vul de lijst met recordobjecten

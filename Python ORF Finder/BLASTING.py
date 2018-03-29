@@ -5,13 +5,23 @@
 #import cx_Oracle
 from Bio.Blast import NCBIXML
 
-
 #run a local BLAST
 def local():
-    import os
-    #os.system('LocalBlast.bat')
+    import os, platform
+    CurrentPlatform = platform.system()
+    from subprocess import Popen
+
+    if CurrentPlatform == 'Linux':
+        shell = Popen("LocalBlast.sh", cwd=os.path.abspath("LocalBlast.sh"))
+        stdout, stderr = shell.communicate()
+
+    if CurrentPlatform == 'Windows':
+        batch = Popen("LocalBlast.bat", cwd=os.path.abspath("LocalBlast.bat"))
+        stdout, stderr = batch.communicate()
 
     getData(NCBIXML.read(open("testResult.xml", "r")))
+
+    #os.system('LocalBlast.bat')
 
 #Gets the required data from the input alignment, the data fetched is alignment title, protein name, protein accession,
 #e-value, identity score, organism name, and organism family, genus, and species names

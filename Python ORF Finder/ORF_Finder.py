@@ -10,13 +10,15 @@
 # The user can choose between a single Fasta file or a Multiple Fasta file using the input index which defaults to index 0, the first entry.
 # Known Bugs: It's currently not possible to load multiple fasta files after each other, you have to restart the application. 
 # Also, some Fasta files containing N's don't work, for example SD.fa. (example we used)
-# TO_ADD: blastbutton (Na het inlezen, voor één of alle reading frames)
+# TO_ADD: 
 
-from read import load_file
+from read import load_file, CreateHelpWindow
 from dataprocessing import findStartPositions, findNextCodon, findNextStopCodon, findOpenReadingFrames
 
 from tkinter import *  
-import tkinter as tk
+import tkinter as tk #Dit is python versie 3.6 dus Tkinter is niet de import
+
+import os #Voor de icon
 
 #Alleen als Jupyter je IDE is
 #get_ipython().magic('matplotlib')
@@ -36,7 +38,8 @@ class ORFGUI(Frame):
             #Het maken van de master, het hoofdscherm
             self.master = master #De master is het hoofdscherm
             master.title("ORF Predictor") #De titel van het hoofdscherm
-            self.button = Button(master, text="Load File and find ORF's", command = lambda:[load_file(self, self.seq),findOpenReadingFrames(self, seqje=self.seq.get())]) #Een button met text en twee functies
+            master.iconbitmap(os.path.abspath("Logotje.ico"))
+            self.button = Button(master, text="Load File and find ORF's",bg="green", command = lambda:[load_file(self, self.seq),findOpenReadingFrames(self, seqje=self.seq.get())]) #Een button met text en twee functies
             self.button.bind("<Button-1>") #De button vertellen wat voor actie het activeerd            
             self.button.grid(row=0) #De button toevoegen aan het 'grid', rij 0
             
@@ -70,10 +73,14 @@ class ORFGUI(Frame):
             self.scrollbar.grid(row=6, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 6, in het frame
             self.text['yscrollcommand'] = self.scrollbar.set #De scrollbar een commando meegeven
             
+            self.HelpWindowbutton = Button(master, text="Help", width=30, bg="purple", font=("Papyrus", 10), command = lambda:[CreateHelpWindow(self, master)]) #Een button die een hulpscherm geeft, moet in een lambda vanwege een bug als alternatief
+            self.HelpWindowbutton.bind("<Button-1>") #De button vertellen wat voor actie het activeerd
+            self.HelpWindowbutton.grid(row=7) #De button toevoegen aan het 'grid', rij 7
+        
             root.mainloop() #Het uitvoeren van de mainloop
             
         except TclError:
-            messagebox.showerror("Warningmessage", "TclError") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
+            messagebox.showerror("Warningmessage", "TclError, tkinter has issues") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
         
     def __del__(self):
         class_name = self.__class__.__name__
@@ -81,7 +88,10 @@ class ORFGUI(Frame):
           
     
 if __name__ == "__main__":
-    root = Tk()
-    my_gui = ORFGUI(root)
+    try:
+        root = Tk()
+        my_gui = ORFGUI(root)
+    except Exception as x:
+            messagebox.showerror("Warningmessage", "A Rare Random Error appeared" + "\n" + str(x)) #Alle mogelijke andere errors die de applicatie kan hebben worden afgevangen
 
 
