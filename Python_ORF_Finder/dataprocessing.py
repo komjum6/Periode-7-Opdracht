@@ -354,6 +354,10 @@ def plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt):
             record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen 
             plt.title(str(Frameskew)) #De titel wordt gezet
             plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
+            
+    from BLASTING import local 
+    if self.CheckBlastInt.get()==1: 
+        local() 
     
 #-----------------------------------------Garbage code, DO NOT DELETE (may be useful later)-------------------------------------------------------------        
     """
