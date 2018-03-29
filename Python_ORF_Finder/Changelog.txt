@@ -104,3 +104,5 @@ In versie 0.52
 In versie 0.53
 --------------------------------------------------------------------
 1. BLASTING.py geupdated en geeft nu SQL om de database te vullen door Teun
+
+--------------------------------------1. batch gefixed 0.54
