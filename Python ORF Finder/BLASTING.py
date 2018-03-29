@@ -15,9 +15,9 @@ def local():
         shell = Popen("LocalBlast.sh", cwd=os.path.abspath("LocalBlast.sh"))
         stdout, stderr = shell.communicate()
 
-    if CurrentPlatform == 'Windows':
+    '''if CurrentPlatform == 'Windows':
         batch = Popen("LocalBlast.bat", cwd=os.path.abspath("LocalBlast.bat"))
-        stdout, stderr = batch.communicate()
+        stdout, stderr = batch.communicate()'''
 
     getData(NCBIXML.read(open("testResult.xml", "r")))
 
@@ -28,9 +28,10 @@ def local():
 def getData(alignment):
     print('Fetching data from results.')
     ID = 1
+    output = open("SQL_Result.txt", "w")
     for alignment in alignment.alignments:
         for hsp in alignment.hsps:
-            title = alignment.title
+            #title = alignment.title
             #protName = title[title.index(' ')+1:title.index('[')-1]
             #access = alignment.accession
             identity = (float(hsp.positives)/float(hsp.align_length))*100
@@ -46,10 +47,11 @@ def getData(alignment):
             print(hsp.query)
             print('')'''
 
-            print("""INSERT INTO Result (ID, Score, Expect, Identities, Positives, Gaps, Query_Subject)
-                    VALUES (%i, %i, %f, %f, %i, %i, %s)"""%(ID, hsp.score, hsp.expect, identity, hsp.positives, hsp.gaps, hsp.query))
+            output.write("""INSERT INTO Result (ID, Score, Expect, Identities, Positives, Gaps, Query_Subject)
+                    VALUES (%i, %i, %f, %f, %i, %i, %s);"""%(ID, hsp.score, hsp.expect, identity, hsp.positives, hsp.gaps, hsp.query))
             ID += 1
 
+    output.close()
         #save(header=header,
         #     blastID=ID, accesscode=access, evalue=evalue, identity=identity,
         #     protname=protName, orgname=orgName,
