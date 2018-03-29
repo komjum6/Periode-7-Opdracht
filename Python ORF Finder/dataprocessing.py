@@ -355,6 +355,11 @@ def plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt):
             plt.title(str(Frameskew)) #De titel wordt gezet
             plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
     
+    from BLASTING import local
+    print(self.CheckBlastInt.get())
+    if self.CheckBlastInt.get()==1:
+        local()
+    
 #-----------------------------------------Garbage code, DO NOT DELETE (may be useful later)-------------------------------------------------------------        
     """
     seq.set(str(result))

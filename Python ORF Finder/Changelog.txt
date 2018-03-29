@@ -89,7 +89,8 @@ In versie 0.51
 
 In versie 0.52
 --------------------------------------------------------------------1. Het icon en het plaatje werken nu (Justin)
-2. Ik heb ook wat terug uit commenthel gebracht van printOpenReadingFramesOneFigure. Ik dacht dat de voordelen beter zijn dan de nadelen. (Justin
+2. Ik heb ook wat terug uit commenthel gebracht van printOpenReadingFramesOneFigure. Ik dacht dat de voordelen beter zijn dan de nadelen. (Justin)
+--------------------------------------------------------------------1. SQL testjes voor SQL codes 2. batch file werkt automatisch (Luuk) versie 0.53
 
 
 
