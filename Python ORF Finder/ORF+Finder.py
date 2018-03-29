@@ -19,7 +19,7 @@ from tkinter import *
 import tkinter as tk
 
 #Alleen als Jupyter je IDE is
-get_ipython().magic('matplotlib')
+#get_ipython().magic('matplotlib')
 
 #Hier vind de actie plaats
 class ORFGUI(Frame):  
