@@ -10,16 +10,15 @@ def local():
     import os, platform
     CurrentPlatform = platform.system()
     from subprocess import Popen
-
+    print(CurrentPlatform)
     if CurrentPlatform == 'Linux':
         shell = Popen("LocalBlast.sh", cwd=os.path.abspath("LocalBlast.sh"))
         stdout, stderr = shell.communicate()
 
-    '''if CurrentPlatform == 'Windows':
-        batch = Popen("LocalBlast.bat", cwd=os.path.abspath("LocalBlast.bat"))
-        stdout, stderr = batch.communicate()'''
-
-    getData(NCBIXML.read(open("testResult.xml", "r")))
+    if CurrentPlatform == 'Windows':
+        os.system('LocalBlast.bat')
+        #batch = Popen("LocalBlast.bat", cwd=os.path.abspath("LocalBlast.bat"))
+        #stdout, stderr = batch.communicate()
 
     #os.system('LocalBlast.bat')
 
