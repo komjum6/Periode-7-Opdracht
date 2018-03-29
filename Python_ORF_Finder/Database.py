@@ -89,11 +89,9 @@ def Read():
                 Query(Write,Insert_Query,Values_Query)
                 sequentie=""
                 ID=ID+1
-                header=str(line)
 
             else:
                 ID=ID+1
-                header=str(line)
                 line = line[line.index("|"):]
                 frame, pos = line.split("|")
                 pos=pos[pos.index(":"):]
