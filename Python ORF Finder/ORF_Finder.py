@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 # Autors: Bertram Hutten, Luuk van Damme, Teun van Duffelen en Justin Huberts
 # Date of creation: around the beginning of February (the second, the third or anything like it)
@@ -16,7 +16,9 @@ from read import load_file, CreateHelpWindow
 from dataprocessing import findStartPositions, findNextCodon, findNextStopCodon, findOpenReadingFrames
 
 from tkinter import *  
-import tkinter as tk
+import tkinter as tk #Dit is python versie 3.6 dus Tkinter is niet de import
+
+import os #Voor de icon
 
 #Alleen als Jupyter je IDE is
 get_ipython().magic('matplotlib')
@@ -36,6 +38,7 @@ class ORFGUI(Frame):
             #Het maken van de master, het hoofdscherm
             self.master = master #De master is het hoofdscherm
             master.title("ORF Predictor") #De titel van het hoofdscherm
+            master.iconbitmap(os.path.abspath("Logotje.ico"))
             self.button = Button(master, text="Load File and find ORF's",bg="green", command = lambda:[load_file(self, self.seq),findOpenReadingFrames(self, seqje=self.seq.get())]) #Een button met text en twee functies
             self.button.bind("<Button-1>") #De button vertellen wat voor actie het activeerd            
             self.button.grid(row=0) #De button toevoegen aan het 'grid', rij 0
@@ -77,7 +80,7 @@ class ORFGUI(Frame):
             root.mainloop() #Het uitvoeren van de mainloop
             
         except TclError:
-            messagebox.showerror("Warningmessage", "TclError") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
+            messagebox.showerror("Warningmessage", "TclError, tkinter has issues") #Deze error komt als je .pack() en .grid() door elkaar gebruikt
         
     def __del__(self):
         class_name = self.__class__.__name__

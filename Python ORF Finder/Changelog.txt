@@ -87,5 +87,10 @@ In versie 0.51
 2. Er is een .ico en een .gif toegevoegd voor ons logo, in de volgende commit moet er nog een implementatie van komen. Het verwerkten van het icon is wel al af op mijn pc. (Justin)
 #comment: Het gedeelte met de connectie met de database van Teun en Luuk werkt niet omdat cx_oracle niet wil, het had voorkomen kunnen worden als ze al eerder waren begonnen eraan ipv sprinten voor de deadline.
 
+In versie 0.52
+--------------------------------------------------------------------1. Het icon en het plaatje werken nu (Justin)
+2. Ik heb ook wat terug uit commenthel gebracht van printOpenReadingFramesOneFigure. Ik dacht dat de voordelen beter zijn dan de nadelen. (Justin
+
+
 
 
