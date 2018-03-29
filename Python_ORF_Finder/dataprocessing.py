@@ -258,7 +258,7 @@ def printOpenReadingFrames(self, seqje, result, Frameskew, radioInt, recordlijst
         if len(found_orf) % 3 == 2:
             skew = 2
         try:
-            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\nPosities " + str(result[count]) + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
+            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\n\nPosities " + str(result[count]) + "\n\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
         except KeyError:
             messagebox.showerror("Warningmessage", "KeyError")
         color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
@@ -305,7 +305,7 @@ def printOpenReadingFramesOneFigure(self, seqje, alternative_result, Frameskew, 
             skew = 2
 
         try:
-            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\nPosities " + str(result[count]) + "\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
+            displayString = displayString + "\n" + " Index " + str(count) + " Reading Frame " + str(Frameskew) + "\n" + "  ORF in Nucleotides" + "\n" + found_orf + "\n\nPosities " + str(result[count]) + "\n\n" + "  ORF in Amino Acids" + "\n" + "".join([aminoAcidMap[found_orf[x:x+3]] for x in range(0, (len(found_orf)-skew), 3)]) + "\n" #Een string maken met alle ORF's
         except KeyError:
             messagebox.showerror("Warningmessage", "KeyError")
         color = "#%06x" % random.randint(0, 0xFFFFFF) #Een willekeurige kleur wordt gekozen
@@ -354,11 +354,6 @@ def plotOpenReadingFrames(self, recordlijst, Frameskewlijst, radioInt):
             record.plot(figure_width=15) #Het figuur wordt gemaakt, de grootte van het figuur valt aan te passen 
             plt.title(str(Frameskew)) #De titel wordt gezet
             plt.show() #De aanpassingsfase is over (zoals het zetten van de titel etc), nu worden de figuren getoont
-    
-    from BLASTING import local
-    print(self.CheckBlastInt.get())
-    if self.CheckBlastInt.get()==1:
-        local()
     
 #-----------------------------------------Garbage code, DO NOT DELETE (may be useful later)-------------------------------------------------------------        
     """

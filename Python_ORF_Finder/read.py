@@ -66,7 +66,7 @@ def get_data(self, seq, dnalijst, DNA, headerlist, DNAlist):
 def CreateHelpWindow(self, master):
     
     self.HelpWindow = tk.Toplevel(master) #Maakt een nieuwe window om de gebruiker te helpen
-    self.HelpWindow.iconbitmap(os.path.abspath("Logotje.ico"))
+    self.HelpWindow.iconbitmap(os.path.abspath("Logotje.ico")) #Openen van een image via zijn path
     self.HelpWindowbutton.config(text="New Window Already Active",state="disabled") #Maakt de button inactief
     
     self.Hulptextframe = tk.Frame(self.HelpWindow) #Het maken van een Frame
@@ -76,16 +76,21 @@ def CreateHelpWindow(self, master):
     self.Hulpscrollbar = tk.Scrollbar(self.Hulptextframe, orient="vertical", command = self.Hulptext.yview) #Het maken van een scrollbar
     self.Hulpscrollbar.grid(row=0, column=1, sticky="nsew") #De scrollbar toevoegen aan het 'grid', rij 0, in het frame
     self.Hulptext['yscrollcommand'] = self.Hulpscrollbar.set #De scrollbar een commando meegeven
+    WindowInput(self, master) #Aanroepen volgende functie
+
+#-----------------------------------------Het vullen van het hulpscherm-----------------------------------------------------
     
-    try: #Dit is puur omdat Justin wat tijd over had
-        from PIL import Image, ImageTk
+def WindowInput(self, master):
+    
+    try: #Dit try-except codeblok is puur omdat Justin wat tijd over had, het valt niet binnen de echte applicatie omdat het geen contributie geeft aan diens functie
+        from PIL import Image, ImageTk #Import functies van PIL (Pillow)
         
-        im = Image.open(os.path.abspath("Logotje.gif"))
-        im = im.resize((200,200), Image.ANTIALIAS)
-        self.tkimage = ImageTk.PhotoImage(im)
-        self.goodcanvas = tk.Canvas(self.Hulptextframe)
-        self.goodcanvas.create_image(100, 0, image=self.tkimage, anchor="nw")
-        self.goodcanvas.grid(row=1)
+        im = Image.open(os.path.abspath("Logotje.gif")) #Openen van een image via zijn path
+        im = im.resize((200,200), Image.ANTIALIAS) #De grootte van de image aanpassen
+        self.tkimage = ImageTk.PhotoImage(im) #De image in een PhotoImage plaatsen
+        self.goodcanvas = tk.Canvas(self.Hulptextframe) #Een Canvas aanmaken
+        self.goodcanvas.create_image(100, 0, image=self.tkimage, anchor="nw") #Het maken van een image met als x-as 100 en y-as 0 in de Canvas
+        self.goodcanvas.grid(row=1) #Het Canvas toevoegen aan het 'grid', rij 1
         
     except TclError:
         messagebox.showerror("Warningmessage", "TclError, can't find Image\nBut you can continue without,\nClose the Window then") #Deze error komt als het de Image niet kan vinden

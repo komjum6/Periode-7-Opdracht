@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[12]:
 
 # Autors: Bertram Hutten, Luuk van Damme, Teun van Duffelen en Justin Huberts
 # Date of creation: around the beginning of February (the second, the third or anything like it)
@@ -21,7 +21,7 @@ import tkinter as tk #Dit is python versie 3.6 dus Tkinter is niet de import
 import os #Voor de icon
 
 #Alleen als Jupyter je IDE is
-#get_ipython().magic('matplotlib')
+get_ipython().magic('matplotlib')
 
 #Hier vind de actie plaats
 class ORFGUI(Frame):  
@@ -38,7 +38,7 @@ class ORFGUI(Frame):
             #Het maken van de master, het hoofdscherm
             self.master = master #De master is het hoofdscherm
             master.title("ORF Predictor") #De titel van het hoofdscherm
-            master.iconbitmap(os.path.abspath("Logotje.ico"))
+            master.iconbitmap(os.path.abspath("Logotje.ico")) #Openen van een image via zijn path
             self.button = Button(master, text="Load File and find ORF's",bg="green", command = lambda:[load_file(self, self.seq),findOpenReadingFrames(self, seqje=self.seq.get())]) #Een button met text en twee functies
             self.button.bind("<Button-1>") #De button vertellen wat voor actie het activeerd            
             self.button.grid(row=0) #De button toevoegen aan het 'grid', rij 0
