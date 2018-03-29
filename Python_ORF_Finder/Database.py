@@ -69,7 +69,7 @@ def Read():
         else:
             sequentie+=str(line)
 
-    Insert_Query="INSERT INTO INTEREST_GENES(ID,HEADER,SEQUENCE)"
+    Insert_Query="INSERT INTO ORGANISM(ID,HEADER,SEQUENCE)"
     Values_Query="VALUES( '{0}','{1}','{2}' );".format(ID,header,sequentie)
     Query(Write,Insert_Query,Values_Query)
 
@@ -77,6 +77,36 @@ def Read():
     Write.close()
 
 
+    ReadFile=open("ORF.txt", "r")
+    Write=open("SQL_ORF.txt", "w")
+    pos=0
+    frame=0
+    for line in ReadFile:
+        if line.startswith(">"):
+            if(ID!=0):
+                Insert_Query="INSERT INTO ORF(ID, NUCLEOTIDE_SEQUENTIE, POSITION, FRAME_FRAME)"
+                Values_Query="VALUES( '{0}', '{1}', '{2}', '{4}' );".format(ID, sequentie, pos, frame)
+                Query(Write,Insert_Query,Values_Query)
+                sequentie=""
+                ID=ID+1
+                header=str(line)
+
+            else:
+                ID=ID+1
+                header=str(line)
+                line = line[line.index("|"):]
+                frame, pos = line.split("|")
+                pos=pos[pos.index(":"):]
+                frame=frame[frame.index(":"):]
+        else:
+            sequentie+=str(line)
+
+    Insert_Query="INSERT INTO ORF(ID, NUCLEOTIDE_SEQUENTIE, POSITION, FRAME_FRAME)"
+    Values_Query="VALUES( '{0}', '{1}', '{2}', '{4}' );".format(ID, sequentie, pos, frame)
+    Query(Write,Insert_Query,Values_Query)
+
+    ReadFile.close()
+    Write.close()
 
 def Query(WriteFile,Insert,Values):
     WriteFile.write(str(Insert)+"\n")
