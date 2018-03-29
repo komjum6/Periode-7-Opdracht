@@ -82,3 +82,10 @@ In versie 0.50
 --------------------------------------------------------------------1. Een hulpmenu is toegevoegd (Justin)
 2. Kleine aanpassingen gedaan (Justin)
 
+In versie 0.51
+--------------------------------------------------------------------1. BLASTING.py is door Justin aangepast waardoor de applicatie uit zijn platformspecifieke fase is (er wordt gekozen of een shell of batch bestand gebruikt moet worden)
+2. Er is een .ico en een .gif toegevoegd voor ons logo, in de volgende commit moet er nog een implementatie van komen. Het verwerkten van het icon is wel al af op mijn pc. (Justin)
+#comment: Het gedeelte met de connectie met de database van Teun en Luuk werkt niet omdat cx_oracle niet wil, het had voorkomen kunnen worden als ze al eerder waren begonnen eraan ipv sprinten voor de deadline.
+
+
+
