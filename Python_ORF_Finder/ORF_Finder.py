@@ -21,7 +21,7 @@ import tkinter as tk #Dit is python versie 3.6 dus Tkinter is niet de import
 import os #Voor de icon
 
 #Alleen als Jupyter je IDE is
-get_ipython().magic('matplotlib')
+#get_ipython().magic('matplotlib')
 
 #Hier vind de actie plaats
 class ORFGUI(Frame):  

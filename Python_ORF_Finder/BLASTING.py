@@ -2,7 +2,8 @@
 # By Teun van Duffelen, for HAN
 # Version 1.0
 
-#import cx_Oracle 
+#import cx_Oracle
+from Bio.Blast import NCBIXML
 
 #run a local BLAST
 def local():
@@ -13,53 +14,47 @@ def local():
     if CurrentPlatform == 'Linux':
         shell = Popen("LocalBlast.sh", cwd=os.path.abspath("LocalBlast.sh"))
         stdout, stderr = shell.communicate()
-        
+
     if CurrentPlatform == 'Windows':
         os.system('LocalBlast.bat')
         #batch = Popen("LocalBlast.bat", cwd=os.path.abspath("LocalBlast.bat"))
         #stdout, stderr = batch.communicate()
-    
+
     #os.system('LocalBlast.bat')
 
 #Gets the required data from the input alignment, the data fetched is alignment title, protein name, protein accession,
 #e-value, identity score, organism name, and organism family, genus, and species names
-def getData(alignment, ID, header):
+def getData(alignment):
     print('Fetching data from results.')
-    for hsp in alignment.hsps:
-        title = alignment.title
-        protName = title[title.index(' ')+1:title.index('[')-1]
-        access = alignment.accession
-        evalue = hsp.expect
-        identity = (float(hsp.positives)/float(hsp.align_length))*100
-        orgName = title[title.index('[')+1:title.index(']')]
+    ID = 1
+    output = open("SQL_Result.txt", "w")
+    for alignment in alignment.alignments:
+        for hsp in alignment.hsps:
+            #title = alignment.title
+            #protName = title[title.index(' ')+1:title.index('[')-1]
+            #access = alignment.accession
+            identity = (float(hsp.positives)/float(hsp.align_length))*100
+            #orgName = title[title.index('[')+1:title.index(']')]
 
-        #print(orgName)
-        family, genus, species = getTax(access)
-        if ' ' in orgName:
-            if genus == orgName[:orgName.index(' '):]:
-                species = orgName[orgName.index(' ')+1:]
-                species = species[0].upper() + species[1:]
+            '''print('')
+            print(hsp.score)
+            print(hsp.expect)
+            print(identity)
+            #print(protName)
+            print(hsp.positives)
+            print(hsp.gaps)
+            print(hsp.query)
+            print('')'''
 
-        if ' ' in orgName:
-            if family == orgName[:orgName.index(' '):]:
-                genus = orgName[orgName.index(' ') + 1:]
-                genus = genus[0].upper() + genus[1:]
+            output.write("""INSERT INTO Result (ID, Score, Expect, Identities, Positives, Gaps, Query_Subject)
+                    VALUES (%i, %i, %f, %f, %i, %i, %s);"""%(ID, hsp.score, hsp.expect, identity, hsp.positives, hsp.gaps, hsp.query))
+            ID += 1
 
-        print('')
-        print(protName)
-        print(orgName)
-        print(family)
-        print(genus)
-        print(species)
-        print(access)
-        print(evalue)
-        print(identity)
-        print('')
-
-        save(header=header,
-             blastID=ID, accesscode=access, evalue=evalue, identity=identity,
-             protname=protName, orgname=orgName,
-             family=family, genus=genus, species=species)
+    output.close()
+        #save(header=header,
+        #     blastID=ID, accesscode=access, evalue=evalue, identity=identity,
+        #     protname=protName, orgname=orgName,
+        #     family=family, genus=genus, species=species)
 
 #Saves the results of the getData function, as well as both DNA sequences, the header of these sequences, and an ID number for the results
 def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
@@ -100,3 +95,5 @@ def save(mode=0, header='NULL', forward='NULL', reverse='NULL',
     if mode == 1:
         print('Saved results to database')
         print('')
+
+local()

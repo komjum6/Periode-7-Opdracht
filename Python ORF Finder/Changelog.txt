@@ -1,0 +1,106 @@
+Dit is de changelog, hier worden de toevoegingen besproken per verandering.
+Gelieve deze aan te passen bij iedere commit.
+
+In versie 0.3
+--------------------------------------------------------------------------------------------
+1. Justin heeft comments toegevoegd
+2. Justin heeft de GUI aangepast zodat je geen leeg Frame meer te zien krijgt
+3. Justin heeft in de GUI een textblok toegevoegd zodat je de ORF's te zien krijgt in de GUI
+
+In versie 0.31
+--------------------------------------------------------------------------------------------
+1. Justin heeft het bestand verdeeld in meerdere bestanden om het project modulair te maken
+	-De bestanden zijn nu ORF+Finder,read en dataprocessing
+
+In versie 0.32
+--------------------------------------------------------------------------------------------
+1. Justin heeft ervoor gezorgd dat er meerdere Reading Frames zijn.
+
+In versie 0.33
+--------------------------------------------------------------------------------------------
+1. Justin heeft alle Reading Frames in een plaatje gekregen.
+
+In versie 0.34
+--------------------------------------------------------------------------------------------
+1. Justin heeft meer comments toegevoegd en een structuur aangebracht met comments die functies groeperen.
+2. Justin heeft van de printOpenReadingFrames functie twee functies gemaakt.
+
+In versie 0.35
+--------------------------------------------------------------------------------------------
+1. Justin heeft 3 radiobuttons toegevoegd voor iedere mogelijke weergave van de Reading Frames. (de knoppen werken nog niet, maar de functies wel en de knoppen zijn er in de GUI)
+2. Justin heeft de plotOpenReadingFrames functie korter gemaakt en hierin de drie opties van weergave gezet. De printOpenReadingFramesOneFigure functie is toegevoegd.
+
+In versie 0.40
+--------------------------------------------------------------------------------------------
+1. Justin heeft de 3 radiobuttons laten werken waardoor er meerdere manieren zijn om de Reading Frames te zien. Er rest alleen nog een paar bugs die ervoor zorgen dat 2 knoppen niet meer werken nadat al een keer een Bestand is gelezen (De applicatie valt niet her te gebruiken). Omdat we deze repository ook willen gebruiken voor Afvink 6 gaat iedereen een branch maken, Teun en ik hebben er al een.
+2. Teun is heel wat verder met Blast.py en heeft deze hernoemt naar BLASTING.py zodat nu nog maar gewerkt wordt met een bestand voor het blasten. Later gaat Teun nog een merge doen na deze commit aan zijn branch.
+
+
+
+
+ In versie 0.41
+--------------------------------------------------------------------------------------------
+1. Local Blast toegevoegd door Luuk
+
+In versie 0.42
+--------------------------------------------------------------------------------------------
+1. Kleine aanpassingen van Justin
+
+In versie 0.43
+--------------------------------------------------------------------------------------------
+1. Justin: Een manier toegevoegd om op een index een header te kiezen in een Fasta bestand en daar de DNA van te verwerken. Die index valt te kiezen in de master (het hoofdmenu)
+In versie 0.44
+-------------------------------------------------------------------------------------------
+1. Fasta wordt auto aangemaakt en batch file is geupdate door Luuk
+
+In versie 0.45
+--------------------------------------------------------------------
+1. sh file voor linux aangemaakt om local te blasten (Luuk)
+
+In versie 0.46
+--------------------------------------------------------------------
+1. Kleine aanpassingen door Justin
+2. Blastbutton toegevoegd
+
+In versie 0.47
+--------------------------------------------------------------------
+1. Van load_file zijn drie functies gemaakt (Justin)
+2. Extra comments zijn toegevoegd (Justin)
+3. Exceptionhandling (Justin)
+
+#comment: Bertram heeft ook gewerkt aan de Exceptionhandling, maar hij is ziek wanneer ik dit commit en hij heeft nog niet zijn werk van laatst gecommit of die commit is niet doorgekomen
+
+In versie 0.48
+--------------------------------------------------------------------
+1. Teun heeft BLASTING.py geupdate
+2. Teun heeft Database.py een query functie gegeven
+
+--------------------------------------------------------------------
+1. batch en sh file naar xml output gemaakt/evalue cutoff weg gehaald (Luuk)
+2. naar fasta schrijven frame en position toegevoegd door Luuk
+
+In versie 0.50
+--------------------------------------------------------------------
+1. Een hulpmenu is toegevoegd (Justin)
+2. Kleine aanpassingen gedaan (Justin)
+
+In versie 0.51
+--------------------------------------------------------------------
+1. BLASTING.py is door Justin aangepast waardoor de applicatie uit zijn platformspecifieke fase is (er wordt gekozen of een shell of batch bestand gebruikt moet worden)
+2. Er is een .ico en een .gif toegevoegd voor ons logo, in de volgende commit moet er nog een implementatie van komen. Het verwerkten van het icon is wel al af op mijn pc. (Justin)
+#comment: Het gedeelte met de connectie met de database van Teun en Luuk werkt niet omdat cx_oracle niet wil, het had voorkomen kunnen worden als ze al eerder waren begonnen eraan ipv sprinten voor de deadline.
+
+In versie 0.52
+<<<<<<< HEAD
+--------------------------------------------------------------------
+1. Het icon en het plaatje werken nu (Justin)
+2. Ik heb ook wat terug uit commenthel gebracht van printOpenReadingFramesOneFigure. Ik dacht dat de voordelen beter zijn dan de nadelen. (Justin
+=======
+--------------------------------------------------------------------1. Het icon en het plaatje werken nu (Justin)
+2. Ik heb ook wat terug uit commenthel gebracht van printOpenReadingFramesOneFigure. Ik dacht dat de voordelen beter zijn dan de nadelen. (Justin)
+--------------------------------------------------------------------1. SQL testjes voor SQL codes 2. batch file werkt automatisch (Luuk) versie 0.53
+>>>>>>> eefc4d75ab51ef24ec4d595655d99b145f59b523
+
+In versie 0.53
+--------------------------------------------------------------------
+1. BLASTING.py geupdated en geeft nu SQL om de database te vullen door Teun
