@@ -7,18 +7,7 @@ UN = "owe7_pg1"
 PW = "blaat1234"
 ADDR = "cytosine.nl"
 
-def query(query):
-    conn = cx_Oracle.connect(UN, PW, ADDR)
-    cursor = conn.cursor()
-    cursor.execute(query)
-    return cursor
-
-result = query("""SELECT * FROM FRAME""")
-for frame in result:
-    print(frame)
-
-
-
+#used to fill INTEREST_GENES, ORGANISM, and ORF tables in the database
 def Read():
     sequentie=""
     header=""
@@ -56,7 +45,7 @@ def Read():
     for line in ReadFile:
         if line.startswith(">"):
             if(ID!=0):
-                Insert_Query="INSERT INTO INTEREST_GENES(ID,HEADER,SEQUENCE)"
+                Insert_Query="INSERT INTO ORGANISM(ID,HEADER,SEQUENCE)"
                 Values_Query="VALUES( '{0}','{1}','{2}' );".format(ID,header,sequentie)
                 Query(Write,Insert_Query,Values_Query)
                 sequentie=""
@@ -106,6 +95,7 @@ def Read():
     ReadFile.close()
     Write.close()
 
+#function to write the queries to WriteFile
 def Query(WriteFile,Insert,Values):
     WriteFile.write(str(Insert)+"\n")
     WriteFile.write(+str(Values)+"\n")
